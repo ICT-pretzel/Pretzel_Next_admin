@@ -5,15 +5,21 @@
 import { ColorGreen, ColorOrange, ColorRed } from "../styles/commons/commonsCSS";
 
 const { AdminPageTitle } = require("../styles/adminCommonCSS");
-const { MovieName, ReleaseYear, MovieGrade, InfoEdit, InfoDelete, InformationMatch, MovieNum, MovieContainer, MovieContainer_Content, Pagings, PaginationPrev, PaginationNum, PaginationNext, MovieInfo_Title, MovieInfo, EditBtn, DeleteBtn } = require("../styles/movieManageCSS");
+const { MovieName, ReleaseYear, MovieGrade, InfoEdit, InfoDelete, InformationMatch, MovieNum, MovieContainer, MovieContainer_Content, Pagings, PaginationPrev, PaginationNum, PaginationNext, MovieInfo_Title, MovieInfo, EditBtn, DeleteBtn, MovieAddBtn, SynchroBtn, Buttons, ButtonsContainer } = require("../styles/movieManageCSS");
 const { SearchField } = require("../styles/userManageCSS");
 
 const MovieManage = () => {
-    return(
+    return (
         <>
             <AdminPageTitle>콘텐츠 관리</AdminPageTitle>
             <SearchField type="text" placeholder="영화명을 입력해 주세요. (한글, 영어 가능)" />
-            <MovieNum>총 영화수 <ColorOrange>1818</ColorOrange></MovieNum>
+            <ButtonsContainer>
+                <MovieNum>총 영화수 <ColorOrange>1818</ColorOrange></MovieNum>
+                <Buttons>
+                    <MovieAddBtn>영화 추가</MovieAddBtn>
+                    <SynchroBtn>TMDB 동기화</SynchroBtn>
+                </Buttons>
+            </ButtonsContainer>
             <MovieContainer>
                 <MovieContainer_Content>
                     <MovieInfo_Title>

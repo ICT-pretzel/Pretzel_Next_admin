@@ -1,11 +1,50 @@
 import styled from "@emotion/styled";
 
-export const MovieNum = styled.p`
+export const ButtonsContainer = styled.div`
     max-width: 1000px;
     width: 100%;
     margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+`
+
+export const MovieNum = styled.p`
     font-family: "Pretendard-Regular";
     color: #ffffff;
+    box-sizing: border-box;
+    padding-top: 19px;
+`
+
+export const MovieAddBtn = styled.button`
+    border: none;
+    border-radius: 5px;
+    background-color: #232323;
+    font: 15px "Pretendard-Regular";
+    color: #ffffff;
+    height: 35px;
+    width: 100px;
+    margin-right: 10px;
+
+    &:hover {
+        color: #868686;
+    }
+`
+
+export const SynchroBtn = styled.button`
+    border: none;
+    border-radius: 5px;
+    background-color: #232323;
+    font: 15px "Pretendard-Regular";
+    color: #ffffff;
+    height: 35px;
+    width: 130px;
+
+    &:hover {
+        color: #868686;
+    }
+`
+
+export const Buttons = styled.div`
 `
 
 export const MovieContainer = styled.table`

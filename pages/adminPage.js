@@ -9,13 +9,17 @@ import ReportManage from "./reportManage";
 import ReportDetail from "./reportDetail";
 import MovieManage from "./movieManage";
 import MovieAdd from "./movieAdd";
+import QnAManage from "./QnAManage";
+import QnADetail from "./QnADetail";
+import AdminManage from "./adminManage";
+import AdminAdd from "./adminAdd";
 
 const AdminPage = () => {
     return (
         <AllAdminContainer>
             <Whitespace />
             <AdminContentContainer>
-                <MovieAdd />
+                <AdminAdd />
             </AdminContentContainer>
         </AllAdminContainer >
     )

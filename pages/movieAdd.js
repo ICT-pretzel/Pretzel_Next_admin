@@ -2,24 +2,56 @@
 
 "use client";
 
+import { useState } from "react";
 import { AdminPageTitle } from "../styles/adminCommonCSS";
 import { AddBtn, CheckIcon, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, Keyword, MovieContainer, MoviePoster, MovieTitle, MovieUpload, OneMovieContainer, OriginalContent, ReleaseYear, SearchBtn, SearchContainer, SearchContainer_inner, SearchTitle, SelectGenre } from "../styles/movieAddCSS";
+import axios from "axios";
 
 const MovieAdd = () => {
+
+    const [query, setQuery] = useState('');
+    const [year, setYear] = useState('');
+    const API_URL = "/movie/search"
+
+    async function search(){
+        try {
+            // axios 서버로 정보 보내기
+            const response = await axios.get("http://localhost:8090/movie/search", {
+                params: {
+                    query: query, 
+                    year: year
+                }
+                });
+            console.log(response)
+            console.log(response.data)
+            
+            // token 토큰을 로컬 스토리지에 저장
+        } catch (error) {
+            console.error('로그인 실패 : ', error)
+            setQuery("");
+            setYear("")
+        }
+    }
+    const handleQuery = (e) =>{
+        setQuery(e.target.value);
+    }
+    const handleYear = (e) =>{
+        setYear(e.target.value);
+    }
     return (
         <>
             <AdminPageTitle>콘텐츠 추가</AdminPageTitle>
             <SearchContainer>
                 <SearchContainer_inner>
                     <SearchTitle>제목</SearchTitle>
-                    <Keyword type="text" placeholder="영화 제목을 입력해 주세요." />
+                    <Keyword type="text" onChange={handleQuery} placeholder="영화 제목을 입력해 주세요." />
                 </SearchContainer_inner>
                 <SearchContainer_inner>
                     <SearchTitle>개봉년도</SearchTitle>
-                    <Keyword type="text" placeholder="개봉년도를 입력해 주세요." />
+                    <Keyword type="text" onChange={handleYear} placeholder="개봉년도를 입력해 주세요." />
                 </SearchContainer_inner>
             </SearchContainer>
-            <SearchBtn>검색</SearchBtn>
+            <SearchBtn onClick={search}>검색</SearchBtn>
 
             <MovieContainer>
                 <OneMovieContainer>
@@ -92,6 +124,10 @@ const MovieAdd = () => {
                 </InputContainer_inner>
                 <InputContainer_inner>
                     <InputTitle>영화 업로드</InputTitle>
+                    <MovieUpload type="file" />
+                </InputContainer_inner>
+                <InputContainer_inner>
+                    <InputTitle>자막 업로드</InputTitle>
                     <MovieUpload type="file" />
                 </InputContainer_inner>
             </InputContainer>
