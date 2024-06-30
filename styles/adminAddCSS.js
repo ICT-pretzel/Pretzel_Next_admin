@@ -34,3 +34,34 @@ export const AdminInfo_Radio = styled.input`
 export const Radio_Label = styled.label`
     color: #ffffff;
 `
+
+export const Radio_Container = styled.div`
+    width: 280px;
+    display: flex;
+    justify-content: space-evenly;
+`
+
+export const MemoBox = styled.textarea`
+    width: 280px;
+    height: 100px;
+    background-color: white;
+    font: 14px "Pretendard-Regular";
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 5px;
+`
+
+export const AddBtn = styled.button`
+    border: none;
+    border-radius: 50px;
+    background-color: #f29a2e;
+    font: 17px "Pretendard-Regular";
+    color: #ffffff;
+    height: 50px;
+    width: 110px;
+    margin: 30px 0 100px 0;
+
+    &:hover {
+        background-color: #ad6e21;
+    }
+`

@@ -15,7 +15,7 @@ export const UserInfoTitle = styled.div`
     color: #ffffff;
     width: 100px;
     height: 50px;
-    `
+`
 
 export const UserInfo = styled.div`
     background-color: #252525;

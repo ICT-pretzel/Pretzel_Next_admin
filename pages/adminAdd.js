@@ -1,6 +1,6 @@
 "use client";
 
-import { AdminInfo_Container, AdminInfo_Input, AdminInfo_Radio, AdminInfo_Title, AdminInput_Container, Radio_Label } from "../styles/adminAddCSS";
+import { AddBtn, AdminInfo_Container, AdminInfo_Input, AdminInfo_Radio, AdminInfo_Title, AdminInput_Container, MemoBox, Radio_Container, Radio_Label } from "../styles/adminAddCSS";
 import { AdminPageTitle } from "../styles/adminCommonCSS";
 
 const AdminAdd = () => {
@@ -22,10 +22,17 @@ const AdminAdd = () => {
                 </AdminInfo_Container>
                 <AdminInfo_Container>
                     <AdminInfo_Title>권한</AdminInfo_Title>
-                    <Radio_Label><AdminInfo_Radio type="radio" name="dd" value="0" />일반</Radio_Label>
-                    <Radio_Label><AdminInfo_Radio type="radio" name="dd" value="1" />슈퍼</Radio_Label>
+                    <Radio_Container>
+                        <Radio_Label><AdminInfo_Radio type="radio" name="dd" value="0" />일반</Radio_Label>
+                        <Radio_Label><AdminInfo_Radio type="radio" name="dd" value="1" />슈퍼</Radio_Label>
+                    </Radio_Container>
+                </AdminInfo_Container>
+                <AdminInfo_Container>
+                    <AdminInfo_Title>메모</AdminInfo_Title>
+                    <MemoBox placeholder="메모를 입력해 주세요."></MemoBox>
                 </AdminInfo_Container>
             </AdminInput_Container>
+            <AddBtn>추가하기</AddBtn>
         </>
     )
 }

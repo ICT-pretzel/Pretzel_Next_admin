@@ -13,13 +13,14 @@ import QnAManage from "./QnAManage";
 import QnADetail from "./QnADetail";
 import AdminManage from "./adminManage";
 import AdminAdd from "./adminAdd";
+import AdminDetail from "./adminDetail";
 
 const AdminPage = () => {
     return (
         <AllAdminContainer>
             <Whitespace />
             <AdminContentContainer>
-                <AdminAdd />
+                <AdminDetail />
             </AdminContentContainer>
         </AllAdminContainer >
     )
