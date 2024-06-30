@@ -15,7 +15,7 @@ import AdminManage from "./adminManage";
 import AdminAdd from "./adminAdd";
 import AdminDetail from "./adminDetail";
 
-const AdminPage = () => {
+const SynthesisPage = () => {
     return (
         <AllAdminContainer>
             <Whitespace />
@@ -26,4 +26,4 @@ const AdminPage = () => {
     )
 }
 
-export default AdminPage;
+export default SynthesisPage;

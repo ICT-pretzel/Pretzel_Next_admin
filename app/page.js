@@ -6,17 +6,18 @@ import '../styles/commons/font.css'
 import '../styles/commons/commons.css'
 
 import SideNav from '../pages/sideNav';
-import AdminPage from '../pages/adminPage';
+import AdminPage from '../pages/synthesisPage';
 import TopBtn from '../pages/commons/topBtn';
 import AdminLogin from '../pages/adminLogin';
 import LogoutBtn from '../pages/commons/logoutBtn';
+import SynthesisPage from '../pages/synthesisPage';
 
 
 export default function Home() {
   return (
     <>
       <SideNav />
-      <AdminPage />
+      <SynthesisPage />
       <TopBtn />
       <LogoutBtn />
       {/* SideNav가 없어졌을 때
