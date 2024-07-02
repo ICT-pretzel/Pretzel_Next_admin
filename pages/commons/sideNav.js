@@ -2,15 +2,15 @@
 
 "use client";
 
-import { ColorOrange, Icon24px } from "../styles/commons/commonsCSS";
-import { AdminName, AdminNameContainer, Logo, Menus, SideNavContainer } from "../styles/sideNavCSS";
+import { ColorOrange } from "../../styles/commons/commonsCSS";
+import { AdminName, AdminNameContainer, Icon, Logo, Menus, SideNavContainer } from "../../styles/sideNavCSS";
 
 const SideNav = () => {
     return (
         <SideNavContainer>
             <AdminNameContainer>
                 <AdminName><ColorOrange>전체관리자</ColorOrange>님</AdminName>
-                <Icon24px src='/images/icons/doubleArrowLeft.png' />
+                <Icon src='/images/icons/doubleArrowLeft.png' />
             </AdminNameContainer>
             <Menus>대시보드</Menus>
             <Menus>회원 관리</Menus>

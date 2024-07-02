@@ -66,5 +66,7 @@ export const LogoutButton = styled.button`
 
     &:hover {
         background-color: #ad6e21;
+        color: #868686;
+        cursor: pointer;
     }
 `;

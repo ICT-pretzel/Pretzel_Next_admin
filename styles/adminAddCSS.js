@@ -1,7 +1,15 @@
 import styled from "@emotion/styled";
 
+export const AdminAdd_Container = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
 export const AdminInput_Container = styled.div`
-    margin-top: 30px;
+    margin-top: 80px;
 `
 
 export const AdminInfo_Container = styled.div`

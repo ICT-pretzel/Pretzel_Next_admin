@@ -5,12 +5,10 @@ import '../styles/commons/reset.css'
 import '../styles/commons/font.css'
 import '../styles/commons/commons.css'
 
-import SideNav from '../pages/sideNav';
-import AdminPage from '../pages/synthesisPage';
-import TopBtn from '../pages/commons/topBtn';
-import AdminLogin from '../pages/adminLogin';
-import LogoutBtn from '../pages/commons/logoutBtn';
+import SideNav from '../pages/commons/sideNav';
 import SynthesisPage from '../pages/synthesisPage';
+import TopBtn from '../pages/commons/topBtn';
+import LogoutBtn from '../pages/commons/logoutBtn';
 
 
 export default function Home() {

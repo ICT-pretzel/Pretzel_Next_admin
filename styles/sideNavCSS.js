@@ -26,6 +26,7 @@ export const Menus = styled.p`
     &:hover {
         background-color: #343434;
         color: #ffffff;
+        cursor: pointer;
     }
 
 `
@@ -53,4 +54,10 @@ export const Logo = styled.p`
     align-self: center;
     position: absolute;
     bottom: 30px;
+`
+
+export const Icon = styled.img`
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 `

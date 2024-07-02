@@ -27,6 +27,7 @@ export const AddAdminBtn = styled.button`
 
     &:hover {
         color: #868686;
+        cursor: pointer;
     }
 `
 
@@ -74,4 +75,10 @@ export const StateBtn = styled.button`
     border: none;
     font-family: "Pretendard-Regular";
     color: #ffffff;
+
+    &:hover {
+        background-color: #343434;
+        color: #868686;
+        cursor: pointer;
+    }
 `
