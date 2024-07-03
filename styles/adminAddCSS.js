@@ -23,7 +23,7 @@ export const AdminInfo_Title = styled.div`
     color: #ffffff;
     width: 100px;
     height: 50px;
-    `
+`
 
 export const AdminInfo_Input = styled.input`
     background-color: #252525;
@@ -70,6 +70,8 @@ export const AddBtn = styled.button`
     margin: 30px 0 100px 0;
 
     &:hover {
+        color: #868686;
         background-color: #ad6e21;
+        cursor: pointer;
     }
 `

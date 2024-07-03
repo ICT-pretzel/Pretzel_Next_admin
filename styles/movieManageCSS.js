@@ -27,6 +27,7 @@ export const MovieAddBtn = styled.button`
 
     &:hover {
         color: #868686;
+        cursor: pointer;
     }
 `
 
@@ -41,6 +42,7 @@ export const SynchroBtn = styled.button`
 
     &:hover {
         color: #868686;
+        cursor: pointer;
     }
 `
 
@@ -126,6 +128,12 @@ export const EditBtn = styled.button`
     border: none;
     font-family: "Pretendard-Regular";
     color: #ffffff;
+
+    &:hover {
+        background-color: #343434;
+        color: #868686;
+        cursor: pointer;
+    }
 `
 
 export const DeleteBtn = styled.button`
@@ -136,4 +144,10 @@ export const DeleteBtn = styled.button`
     border: none;
     font-family: "Pretendard-Regular";
     color: #ffffff;
+
+    &:hover {
+        background-color: #343434;
+        color: #868686;
+        cursor: pointer;
+    }
 `

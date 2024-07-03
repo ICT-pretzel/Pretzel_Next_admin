@@ -56,29 +56,33 @@ export const AdminInfo = styled.tr`
 `
 
 export const Admin_ID = styled.td`
-    width: 50%;
+    width: 39%;
 `
 
 export const Admin_Right = styled.td`
-    width: 25%;
+    width: 20%;
+`
+
+export const Admin_Reg = styled.td`
+    width: 27%;
 `
 
 export const Admin_State = styled.td`
-    width: 25%;
+    width: 14%;
 `
 
-export const StateBtn = styled.button`
-    width: 30%;
-    height: 25px;
-    border-radius: 50px;
-    background-color: #4b4b4b;
-    border: none;
-    font-family: "Pretendard-Regular";
-    color: #ffffff;
+export const GradeAll = styled.span`
+    color: #00964B;
+`
 
-    &:hover {
-        background-color: #343434;
-        color: #868686;
-        cursor: pointer;
-    }
+export const Grade12 = styled.span`
+    color: #EABC00;
+`
+
+export const Grade15 = styled.span`
+    color: #DC7317;
+`
+
+export const Grade18 = styled.span`
+    color: #D92C35;
 `

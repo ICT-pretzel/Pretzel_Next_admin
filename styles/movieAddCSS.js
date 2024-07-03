@@ -15,7 +15,7 @@ export const SearchTitle = styled.div`
     color: #ffffff;
     width: 100px;
     height: 50px;
-    `
+`
 
 export const Keyword = styled.input`
     background-color: #252525;
@@ -46,33 +46,55 @@ export const SearchBtn = styled.button`
 
 export const MovieContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-gap: 30px 20px;
     margin: 40px 5% 0 5%;
+`
+
+export const NoSearchResult = styled.div`
+    color: #868686;
+    font: 20px "Pretendard-Regular";
+    grid-column: 1 / 7;
+    text-align: center;
 `
 
 export const OneMovieContainer = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    max-width: 200px;
+    width: 100%;
 `
 
 export const MoviePoster = styled.img`
     max-width: 200px;
     width: 100%;
-    max-height: 300px;
-    height: 100%;
+    height: 300px;
+    object-fit: cover;
     border-radius: 5px;
+
+    &:hover {
+        filter: brightness(50%);
+        transition: filter linear 0.2s;
+    }
 `
 
 export const ReleaseYear = styled.div`
     font: 15px "Pretendard-Regular";
     color: #FFFFFF;
     margin: 10px 0 5px 0;
+    max-width: 200px;
+    width: 100%;
+    text-align: left;
 `
 
 export const MovieTitle = styled.p`
     font: 15px "Pretendard-Regular";
     color: #FFFFFF;
+    max-width: 200px;
+    width: 100%;
+    text-align: left;
 `
 
 export const CheckIcon = styled.img`
@@ -132,6 +154,7 @@ export const SelectGenre = styled.select`
     padding-left: 10px;
     border: none;
     font: 16px/50px "Pretendard-Regular";
+    cursor: pointer;
 `
 
 export const Genre = styled.option`
@@ -140,7 +163,7 @@ export const Genre = styled.option`
 export const MovieUpload = styled.input`
     font: 16px/50px "Pretendard-Regular";
     background-color: #252525;
-    color: #ffffff;
+    color: #868686;
     width: 280px;
     height: 50px;
     border-radius: 5px;
@@ -176,6 +199,8 @@ export const AddBtn = styled.button`
     margin: 30px 0 100px 0;
 
     &:hover {
+        color: #868686;
         background-color: #ad6e21;
+        cursor: pointer;
     }
 `

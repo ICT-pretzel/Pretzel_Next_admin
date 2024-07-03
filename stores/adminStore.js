@@ -1,7 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
 class AdminStore {
-
     // 관리자 정보
     adminInfo = {
         admin_id: '',
@@ -9,17 +8,16 @@ class AdminStore {
         pwd: '',
         role: '0',
         note: '',
-        status: ''
+        status: '1'
     };
 
     constructor() {
-        // MobX 스토어를 자동으로 관찰 가능하게 설정
         makeAutoObservable(this);
     }
 
     // 관리자 정보 변경
-    setAdminInfo(adminInfo) {
-        this.adminInfo = adminInfo;
+    setAdminInfo(k, v) {
+        this.adminInfo[k] = v;
     }
 
 }

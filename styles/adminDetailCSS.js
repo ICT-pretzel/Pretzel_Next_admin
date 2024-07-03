@@ -19,7 +19,7 @@ export const AdminInfo_Title = styled.div`
 
 export const AdminInfo = styled.p`
     background-color: #252525;
-    color: #ffffff;
+    color: #868686;
     width: 280px;
     height: 50px;
     border-radius: 5px;
@@ -61,7 +61,9 @@ export const EditBtn = styled.button`
     margin: 30px 0 100px 0;
 
     &:hover {
+        color: #868686;
         background-color: #ad6e21;
+        cursor: pointer;
     }
 `
 
@@ -76,10 +78,16 @@ export const List_Container = styled.div`
     max-width: 1000px;
     width: 100%;
     height: 60px;
-    margin: 10px 0;
+    margin: 10px auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 20px;
+`
+
+export const ArrowIcon = styled.img`
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 `

@@ -5,16 +5,28 @@ import { AdminContext } from "../../stores/StoreContext";
 import { AddBtn, AdminAdd_Container, AdminInfo_Container, AdminInfo_Input, AdminInfo_Radio, AdminInfo_Title, AdminInput_Container, MemoBox, Radio_Container, Radio_Label } from "../../styles/adminAddCSS";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { observer } from "mobx-react-lite";
+import axios from "axios";
 
 const AdminAddPage = observer(() => {
 
     const adminStore = useContext(AdminContext)
 
+    /* 관리자 정보 */
     const onChangeInfo = (e) => {
-        adminStore.setAdminInfo({
-            ...adminStore.adminInfo,
-            [e.target.name]: e.target.value
-        });
+        adminStore.setAdminInfo(e.target.name, e.target.value);
+    }
+
+    const API_URL = "/master/"
+
+    // 관리자 추가 function
+    async function admin_insert() {
+        console.log(adminStore.adminInfo.pwd);
+        try {
+            const response = await axios.post(API_URL + "admin_insert", adminStore.adminInfo);
+            console.log(response);
+        } catch (error) {
+            console.error('관리자 추가 실패 : ', error);
+        }
     }
 
     return (
@@ -46,7 +58,7 @@ const AdminAddPage = observer(() => {
                         <MemoBox name="note" onChange={onChangeInfo} placeholder="메모를 입력해 주세요."></MemoBox>
                     </AdminInfo_Container>
                 </AdminInput_Container>
-                <AddBtn>추가하기</AddBtn>
+                <AddBtn onClick={admin_insert}>추가하기</AddBtn>
             </AdminAdd_Container>
         </>
     )
