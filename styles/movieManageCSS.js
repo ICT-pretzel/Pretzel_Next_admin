@@ -151,3 +151,19 @@ export const DeleteBtn = styled.button`
         cursor: pointer;
     }
 `
+
+export const GradeAll = styled.span`
+    color: #00964B;
+`
+
+export const Grade12 = styled.span`
+    color: #EABC00;
+`
+
+export const Grade15 = styled.span`
+    color: #DC7317;
+`
+
+export const Grade18 = styled.span`
+    color: #D92C35;
+`

@@ -12,7 +12,7 @@ export const SideNavContainer = styled.div`
     align-content: center;
     padding: 0 10px;
     border-radius: 0 5px 5px 0;
-    `
+`
 
 export const Menus = styled.p`
     font-family: "Pretendard-Regular";

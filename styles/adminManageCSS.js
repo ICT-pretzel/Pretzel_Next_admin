@@ -46,13 +46,19 @@ export const AdminInfo_Title = styled.tr`
     background-color: #343434;
     width: 100%;
     text-align: center;
-`
+    `
 
 export const AdminInfo = styled.tr`
     background-color: #1E1E1E;
     text-align: center;
     box-sizing: border-box;
     border-bottom: 1px solid #343434;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #141414;
+        color: #868686;
+    }
 `
 
 export const Admin_ID = styled.td`
@@ -69,20 +75,4 @@ export const Admin_Reg = styled.td`
 
 export const Admin_State = styled.td`
     width: 14%;
-`
-
-export const GradeAll = styled.span`
-    color: #00964B;
-`
-
-export const Grade12 = styled.span`
-    color: #EABC00;
-`
-
-export const Grade15 = styled.span`
-    color: #DC7317;
-`
-
-export const Grade18 = styled.span`
-    color: #D92C35;
 `

@@ -204,3 +204,20 @@ export const AddBtn = styled.button`
         cursor: pointer;
     }
 `
+
+export const EditBtn = styled.button`
+    border: none;
+    border-radius: 50px;
+    background-color: #f29a2e;
+    font: 17px "Pretendard-Regular";
+    color: #ffffff;
+    height: 50px;
+    width: 110px;
+    margin: 30px 0 100px 0;
+
+    &:hover {
+        color: #868686;
+        background-color: #ad6e21;
+        cursor: pointer;
+    }
+`

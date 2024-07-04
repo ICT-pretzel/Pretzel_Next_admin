@@ -21,6 +21,7 @@ class MovieStore {
     movieUpdate = {
         movie_idx: '', /* 고유 아이디 */
         movie_id: '', /* 영화 아이디 */
+        tmdb_title: '', /* TMDB 제목 */
         korea_title: '', /* 한국어 제목 */
         english_title: '', /* 영어 제목 */
         thema: '', /* 장르 */

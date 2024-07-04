@@ -2,12 +2,12 @@
 
 "use client";
 
-import { ColorGray, ColorOrange } from "../styles/commons/commonsCSS";
-import { Administrator_Container, Buttons, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../styles/reportDetailCSS";
+import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
+import { Administrator_Container, Buttons, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../styles/reportDetailCSS";
 
 const { AdminPageTitle } = require("../styles/adminCommonCSS");
 
-const ReportDetail = () => {
+const ReportDetailPage = () => {
     return (
         <>
             <AdminPageTitle>신고 상세</AdminPageTitle>
@@ -41,4 +41,4 @@ const ReportDetail = () => {
     )
 }
 
-export default ReportDetail;
+export default ReportDetailPage;

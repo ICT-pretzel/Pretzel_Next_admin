@@ -70,3 +70,20 @@ export const LogoutButton = styled.button`
         cursor: pointer;
     }
 `;
+
+export const Loading = styled.div`
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const MenuIcon = styled.img`
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+`

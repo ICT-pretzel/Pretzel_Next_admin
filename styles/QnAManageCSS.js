@@ -30,18 +30,29 @@ export const QnATable = styled.tr`
     text-align: center;
     box-sizing: border-box;
     border-bottom: 1px solid #343434;
+    cursor: pointer;
+
+    &:hover{
+        color: #868686;
+    }
 `
 
 export const Questioner = styled.td`
     width: 15%;
 `
 
-export const QnATitle = styled.td`
-    width: 20%;
+export const Profile_name = styled.td`
+    width: 15%;
 `
 
-export const QnAContent = styled.td`
-    width: 25%;
+export const QnATitle = styled.td`
+    max-width: 0; /* max-width 추가 */
+    box-sizing: border-box;
+    padding: 0 10px;
+    width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 export const WriteDate = styled.td`

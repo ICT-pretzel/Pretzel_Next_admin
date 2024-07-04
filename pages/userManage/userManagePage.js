@@ -1,12 +1,12 @@
-// 회원 관리 페이지 - 다현
+// 회원 관리 페이지
 
 "use client";
 
-import { DetailBtn, PaginationNext, PaginationNum, PaginationPrev, Pagings, SearchField, SuspensionDate, SuspensionStatus, UserBirth, UserContainer, UserContainerContent, UserDetail, UserEmail, UserID, UserInfo, UserInfoTitle, UserNum } from "../styles/userManageCSS";
-import { AdminPageTitle } from "../styles/adminCommonCSS";
-import { ColorOrange } from "../styles/commons/commonsCSS";
+import { DetailBtn, PaginationNext, PaginationNum, PaginationPrev, Pagings, SearchField, SuspensionDate, SuspensionStatus, UserBirth, UserContainer, UserContainerContent, UserDetail, UserEmail, UserID, UserInfo, UserInfoTitle, UserNum } from "../../styles/userManageCSS";
+import { AdminPageTitle } from "../../styles/adminCommonCSS";
+import { ColorOrange } from "../../styles/commons/commonsCSS";
 
-const UserManage = () => {
+const UserManagePage = () => {
     return (
         <>
             <AdminPageTitle>회원 관리</AdminPageTitle>
@@ -105,4 +105,4 @@ const UserManage = () => {
     )
 }
 
-export default UserManage;
+export default UserManagePage;

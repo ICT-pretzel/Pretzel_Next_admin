@@ -2,11 +2,11 @@
 
 "use client";
 
-import { AdminPageTitle } from "../styles/adminCommonCSS";
-import { ColorGray, ColorOrange } from "../styles/commons/commonsCSS";
-import { AdministratorName, Detail, DetailBtn, PaginationNext, PaginationNum, PaginationPrev, Pagings, Processing, ReportContainer, ReportContainer_inner, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../styles/reportManageCSS";
+import { AdminPageTitle } from "../../styles/adminCommonCSS";
+import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
+import { AdministratorName, Detail, DetailBtn, PaginationNext, PaginationNum, PaginationPrev, Pagings, Processing, ReportContainer, ReportContainer_inner, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../styles/reportManageCSS";
 
-const ReportManage = () => {
+const ReportManagePage = () => {
     return (
         <>
             <AdminPageTitle>신고 관리</AdminPageTitle>
@@ -94,4 +94,4 @@ const ReportManage = () => {
     )
 }
 
-export default ReportManage;
+export default ReportManagePage;

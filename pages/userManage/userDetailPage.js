@@ -2,11 +2,11 @@
 
 "use client";
 
-import { AdminPageTitle } from "../styles/adminCommonCSS";
-import { ColorGray } from "../styles/commons/commonsCSS";
-import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../styles/userDetailCSS";
+import { AdminPageTitle } from "../../styles/adminCommonCSS";
+import { ColorGray } from "../../styles/commons/commonsCSS";
+import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../../styles/userDetailCSS";
 
-const UserDetail = () => {
+const UserDetailPage = () => {
     return (
         <>
             <AdminPageTitle>회원 상세</AdminPageTitle>
@@ -90,4 +90,4 @@ const UserDetail = () => {
     )
 }
 
-export default UserDetail;
+export default UserDetailPage;
