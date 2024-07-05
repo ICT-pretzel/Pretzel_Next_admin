@@ -32,7 +32,8 @@ export const QnATable = styled.tr`
     border-bottom: 1px solid #343434;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
+        background-color: #141414;
         color: #868686;
     }
 `

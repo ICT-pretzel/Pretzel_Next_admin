@@ -9,7 +9,7 @@ import { MovieContext } from "../../stores/StoreContext";
 import axios from "axios";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const { AdminPageTitle } = require("../../styles/adminCommonCSS");
 const { Grade12, Grade15, Grade18, GradeAll, MovieName, ReleaseYear, MovieGrade, InfoEdit, InfoDelete, InformationMatch, MovieNum, MovieContainer, MovieContainer_Content, Pagings, PaginationPrev, PaginationNum, PaginationNext, MovieInfo_Title, MovieInfo, EditBtn, DeleteBtn, MovieAddBtn, SynchroBtn, Buttons, ButtonsContainer } = require("../../styles/movieManageCSS");

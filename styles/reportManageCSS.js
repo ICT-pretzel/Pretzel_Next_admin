@@ -30,6 +30,12 @@ export const Report_Content = styled.tr`
     text-align: center;
     box-sizing: border-box;
     border-bottom: 1px solid #343434;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #141414;
+        color: #868686;
+    }
 `
 
 export const ReportType = styled.td`
@@ -37,11 +43,17 @@ export const ReportType = styled.td`
 `
 
 export const ReviewContent = styled.td`
-    width: 50%;
+    max-width: 0; /* max-width 추가 */
+    width: 40%;
+    box-sizing: border-box;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
-export const Detail = styled.td`
-    width: 10%;
+export const ReportDate = styled.td`
+    width: 20%;
 `
 
 export const Processing = styled.td`
@@ -50,16 +62,6 @@ export const Processing = styled.td`
 
 export const AdministratorName = styled.td`
     width: 15%;
-`
-
-export const DetailBtn = styled.button`
-    width: 70%;
-    height: 25px;
-    border-radius: 50px;
-    background-color: #4b4b4b;
-    border: none;
-    font-family: "Pretendard-Regular";
-    color: #ffffff;
 `
 
 export const Pagings = styled.div`

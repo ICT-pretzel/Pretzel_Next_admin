@@ -48,6 +48,12 @@ export const UserInfo = styled.tr`
     text-align: center;
     box-sizing: border-box;
     border-bottom: 1px solid #343434;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #141414;
+        color: #868686;
+    }
 `
 
 export const UserID = styled.td`

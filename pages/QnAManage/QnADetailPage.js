@@ -9,13 +9,13 @@ import axios from "axios";
 import { QnaContext } from "../../stores/StoreContext";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const QnADetailPage = observer(() => {
     const qnaStore = useContext(QnaContext);
     const router = useRouter();
 
-    // 관리자 리스트
+    // 문의 상세
     const [qnaDetail, setQnaDetail] = useState({ quest_profile: {}, question: {}, admin_name: '' });
 
     // 로딩 상태
@@ -49,7 +49,7 @@ const QnADetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE5ODIwODMyLCJleHAiOjE3MTk4MjQ0MzJ9.A9M8mGOUE22tJmkvg4zqIvqqVca3KDt-ygk37ordauI'
+                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
                     }
                 }
             );
@@ -120,11 +120,11 @@ const QnADetailPage = observer(() => {
     // Q&A 답변 작성 저장 function
     async function onClickSave() {
         // 답변이 비어있는데 저장한 경우 제어
-        if(qnaStore.answer.trim() === ''){
+        if (qnaStore.answer.trim() === '') {
             alert("답변을 작성하고 저장해 주세요.")
             return;
         }
-        
+
         try {
             const response = await axios.post(API_URL + "quest_answer",
                 {

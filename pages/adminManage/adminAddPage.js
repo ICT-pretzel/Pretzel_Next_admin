@@ -7,7 +7,7 @@ import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { observer } from "mobx-react-lite";
 import axios from "axios";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const AdminAddPage = observer(() => {
     const router = useRouter();

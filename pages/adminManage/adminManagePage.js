@@ -1,15 +1,15 @@
 "use client";
 
+import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { observer } from "mobx-react-lite";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { AddAdminBtn, AdminContainer, AdminContainer_inner, AdminInfo, AdminInfo_Title, AdminNum, Admin_ID, Admin_Reg, Admin_Right, Admin_State, ButtonsContainer } from "../../styles/adminManageCSS";
 import { ColorOrange } from "../../styles/commons/commonsCSS";
-import axios from "axios";
-import { observer } from "mobx-react-lite";
 import { AdminContext } from "../../stores/StoreContext";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
 
 const AdminManagePage = observer(() => {
     const adminStore = useContext(AdminContext)
@@ -38,7 +38,7 @@ const AdminManagePage = observer(() => {
                     cPage: 1
                 },
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE5ODIwODMyLCJleHAiOjE3MTk4MjQ0MzJ9.A9M8mGOUE22tJmkvg4zqIvqqVca3KDt-ygk37ordauI'
+                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
                 }
             });
             if (response.data.admin_list.length > 0) {

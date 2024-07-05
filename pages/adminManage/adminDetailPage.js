@@ -10,8 +10,8 @@ import AdminDetailReport from "./adminDetailReport";
 import { AdminContext } from "../../stores/StoreContext";
 import { observer } from "mobx-react-lite";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const AdminDetailPage = observer(() => {
     const router = useRouter();

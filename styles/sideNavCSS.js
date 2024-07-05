@@ -17,11 +17,12 @@ export const SideNavContainer = styled.div`
 export const Menus = styled.p`
     font-family: "Pretendard-Regular";
     font-size: 17px;
-    color: #868686;
     height: 50px;
     line-height: 50px;
     padding: 0 10px;
     border-radius: 5px;
+    color: ${({ active }) => (active ? '#ffffff' : '#868686')};
+    background-color: ${({ active }) => (active ? '#343434' : 'transparent')};
     
     &:hover {
         background-color: #343434;

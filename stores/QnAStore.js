@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 
 class QnaStore {
-    question_idx = '11'; /* 고유 아이디 */
+    question_idx = ''; /* 고유 아이디 */
     answer = ''; /* 답변 */
 
     constructor() {

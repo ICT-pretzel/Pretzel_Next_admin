@@ -1,3 +1,5 @@
+// 문의 관리 페이지
+
 "use client";
 
 import { useContext, useEffect, useState } from "react";
@@ -8,14 +10,18 @@ import { observer } from "mobx-react-lite";
 import axios from "axios";
 import { QnaContext } from "../../stores/StoreContext";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+import LoadingSpinner from "../commons/loadingSpinner";
 
 const QnAManagePage = observer(() => {
     const qnaStore = useContext(QnaContext)
     const router = useRouter();
 
-    // 관리자 리스트
+    // 문의 리스트
     const [qnaList, setQnaList] = useState({ count: 0, quest_list: [] });
+
+    // 로딩 상태
+    const [isLoading, setIsLoading] = useState(true);
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
@@ -26,6 +32,8 @@ const QnAManagePage = observer(() => {
 
     // Q&A 리스트 보여주는 function
     async function quest_list() {
+        setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
         try {
             const response = await axios.get(API_URL + "quest_list", {
                 params: {
@@ -38,7 +46,14 @@ const QnAManagePage = observer(() => {
             }
         } catch (error) {
             console.error('리스트 가져오기 실패 : ', error);
+        } finally {
+            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
+    }
+
+    // 로딩중일 때
+    if (isLoading) {
+        return <LoadingSpinner />
     }
 
     // Q&A 상세 들어가기

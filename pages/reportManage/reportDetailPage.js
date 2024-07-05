@@ -2,41 +2,133 @@
 
 "use client";
 
+import { useContext, useEffect, useState } from "react";
+import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
-import { Administrator_Container, Buttons, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../styles/reportDetailCSS";
-
-const { AdminPageTitle } = require("../styles/adminCommonCSS");
+import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../styles/reportDetailCSS";
+import Layout from "../commonLayout";
+import { ReportContext } from "../../stores/StoreContext";
+import { useRouter } from "next/router";
+import LoadingSpinner from "../commons/loadingSpinner";
+import axios from "axios";
 
 const ReportDetailPage = () => {
+    const reportStore = useContext(ReportContext);
+    const router = useRouter();
+
+    // 신고 상세
+    const [reportDetail, setReportDetail] = useState({ profile_name: '', user_id: '', report: {}, content: '' });
+
+    // 로딩 상태
+    const [isLoading, setIsLoading] = useState(true);
+
+    // 처음 렌더링 될 때 실행
+    useEffect(() => {
+        report_detail();
+    }, []);
+
+    const API_URL = "/report/";
+
+    // 신고 상세 function
+    async function report_detail() {
+        setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
+        try {
+            const response = await axios.post(API_URL + "report_detail",
+                {
+                    report_idx: reportStore.report_idx
+                },
+                {
+                    headers: {
+                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                    }
+                }
+            );
+
+            if (response.data.report && response.data.user_id) {
+                setReportDetail({
+                    profile_name: response.data.profile_name,
+                    user_id: response.data.user_id,
+                    report: response.data.report,
+                    content: response.data.content
+                });
+            }
+            console.log(response.data);
+        } catch (error) {
+            console.error('상세 정보 가져오기 실패 : ', error);
+        } finally {
+            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
+        }
+    }
+
+    // 신고 처리 여부에 따라서 관리자 부분 보여주기
+    function report_answer() {
+        if (reportDetail.report.status == '2') {
+            return (
+                <Buttons>
+                    <PendingBtn onClick={report_pending}>신고 보류</PendingBtn>
+                    <ReviewDeleteBtn onClick={review_delete}>해당 리뷰 삭제</ReviewDeleteBtn>
+                </Buttons>
+            )
+        } else {
+            return (
+                <>
+                    <Administrator_Container>
+                        <SubTitle>관리자</SubTitle>
+                        <Content>관리자 아이디 &#160;<ColorGray>{reportDetail.report.admin_id}</ColorGray></Content>
+                        <Content>처리 방식 &#160;<ColorGray>{reportDetail.report.status === '1' ? '신고 보류' : '해당 리뷰 삭제'}</ColorGray></Content>
+                    </Administrator_Container>
+                    <ConfirmBtn onClick={onClickConfirm}>확인</ConfirmBtn>
+                </>
+            )
+        }
+    }
+
+    // controller 수정되면 report_ok axios로 가기
+    // 신고 보류 버튼 클릭 시 신고의 상태 변경
+    const report_pending = () => {
+        setReportDetail.report.status = '1';
+        report_detail()
+    }
+
+    // 리뷰 삭제 버튼 클릭 시 신고의 상태 변경
+    const review_delete = () => {
+        setReportDetail.report.status = '0';
+        report_detail()
+    }
+
+    // 확인 버튼 클릭 시 리스트로 돌아가기
+    const onClickConfirm = () => {
+        router.push('/reportManage/reportManagePage')
+    }
+
+    // 로딩중일 때
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
+
     return (
         <>
-            <AdminPageTitle>신고 상세</AdminPageTitle>
+            <Layout>
+                <AdminPageTitle>신고 상세</AdminPageTitle>
 
-            <ReportDetail_Container>
-                <ReportedPerson_Container>
-                    <SubTitle>피신고자</SubTitle>
-                    <Content>아이디 &#160;<ColorGray>oing_0ing</ColorGray></Content>
-                    <Content>리뷰내용</Content>
-                    <ReviewBox>블라 블라 안녕하세요</ReviewBox>
-                </ReportedPerson_Container>
+                <ReportDetail_Container>
+                    <ReportedPerson_Container>
+                        <SubTitle>피신고자</SubTitle>
+                        <Content>아이디 &#160;<ColorGray>{reportDetail.user_id}</ColorGray></Content>
+                        <Content>리뷰내용</Content>
+                        <ReviewBox>{reportDetail.content}</ReviewBox>
+                    </ReportedPerson_Container>
 
-                <Reporter_Container>
-                    <SubTitle>신고자</SubTitle>
-                    <Content>닉네임 &#160;<ColorGray>안녕</ColorGray></Content>
-                    <Content>신고유형 &#160;<ColorOrange>욕설</ColorOrange></Content>
-                </Reporter_Container>
+                    <Reporter_Container>
+                        <SubTitle>신고자</SubTitle>
+                        <Content>닉네임 &#160;<ColorGray>{reportDetail.profile_name}</ColorGray></Content>
+                        <Content>신고유형 &#160;<ColorOrange>{reportDetail.report.type}</ColorOrange></Content>
+                    </Reporter_Container>
 
-                <Administrator_Container>
-                    <SubTitle>관리자</SubTitle>
-                    <Content>관리자 아이디 &#160;<ColorGray>siddy0406</ColorGray></Content>
-                    <Content>처리 방식 &#160;<ColorGray>삭제</ColorGray></Content>
-                </Administrator_Container>
-
-                <Buttons>
-                    <PendingBtn>처리 보류</PendingBtn>
-                    <ReviewDeleteBtn>해당 리뷰 삭제</ReviewDeleteBtn>
-                </Buttons>
-            </ReportDetail_Container>
+                    {report_answer()}
+                </ReportDetail_Container>
+            </Layout>
         </>
     )
 }

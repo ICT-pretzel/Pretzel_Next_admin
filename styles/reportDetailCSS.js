@@ -9,10 +9,8 @@ export const SubTitle = styled.p`
 export const ReportedPerson_Container = styled.div`
     background-color: #1E1E1E;
     border-radius: 5px;
-    max-width: 500px;
-    width: 100%;
-    max-height: 270px;
-    height: 100%;
+    width: 500px;
+    height: 270px;
     margin: 30px 0 20px 0;
     display: flex;
     flex-direction: column;
@@ -24,10 +22,8 @@ export const ReportedPerson_Container = styled.div`
 export const Reporter_Container = styled.div`
     background-color: #1E1E1E;
     border-radius: 5px;
-    max-width: 270px;
-    width: 100%;
-    max-height: 120px;
-    height: 100%;
+    width: 270px;
+    height: 120px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -39,10 +35,8 @@ export const Reporter_Container = styled.div`
 export const Administrator_Container = styled.div`
     background-color: #1E1E1E;
     border-radius: 5px;
-    max-width: 270px;
-    width: 100%;
-    max-height: 120px;
-    height: 100%;
+    width: 270px;
+    height: 120px;
     margin-bottom: 20px;
     display: flex;
     flex-direction: column;
@@ -67,10 +61,8 @@ export const ReviewBox = styled.div`
     background-color: #343434;
     font: 15px "Pretendard-Regular";
     color: #ffffff;
-    max-width: 450px;
-    width: 100%;
-    max-height: 130px;
-    height: 100%;
+    width: 450px;
+    height: 130px;
     border-radius: 5px;
     box-sizing: border-box;
     padding: 10px;
@@ -109,9 +101,24 @@ export const ReviewDeleteBtn = styled.button`
     }
 `
 
+export const ConfirmBtn = styled.button`
+    border: none;
+    border-radius: 50px;
+    background-color: #3D3D3D;
+    font: 17px "Pretendard-Regular";
+    color: #ffffff;
+    height: 50px;
+    width: 120px;
+    margin: 10px 15px 30px 0;
+
+    &:hover {
+        color: #868686;
+        background-color: #232323;
+    }
+`
+
 export const ReportDetail_Container = styled.div`
     width: 100%;
-    height: calc(100vh - 75px);
     display: flex;
     flex-direction: column;
     align-items: center;
