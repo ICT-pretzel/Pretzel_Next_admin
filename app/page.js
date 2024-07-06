@@ -4,15 +4,14 @@
 import '../styles/commons/reset.css'
 import '../styles/commons/font.css'
 import '../styles/commons/commons.css'
-import AdminManagePage from '../pages/adminManage/adminManagePage';
-import AdminAddPage from '../pages/adminManage/adminAddPage';
-import MovieManagePage from '../pages/movieManage/movieManagePage';
+import DashboardPage from '../pages/dashboard/dashboardPage';
+import AdminLoginPage from '../pages/adminLoginPage';
 
 
 export default function Home() {
   return (
     <>
-      <MovieManagePage />
+      <AdminLoginPage />
     </>
   );
 }

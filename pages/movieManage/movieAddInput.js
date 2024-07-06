@@ -44,8 +44,6 @@ const MovieAddInput = observer(() => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            
-
         } catch (error) {
             console.error('영화 추가 실패 : ', error)
         }

@@ -46,7 +46,7 @@ export const ReviewContent = styled.td`
     max-width: 0; /* max-width 추가 */
     width: 40%;
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 20px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

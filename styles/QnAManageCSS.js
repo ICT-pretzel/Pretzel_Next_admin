@@ -49,7 +49,7 @@ export const Profile_name = styled.td`
 export const QnATitle = styled.td`
     max-width: 0; /* max-width 추가 */
     box-sizing: border-box;
-    padding: 0 10px;
+    padding: 0 20px;
     width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;

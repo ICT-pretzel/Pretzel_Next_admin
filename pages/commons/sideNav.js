@@ -9,14 +9,15 @@ import { AdminName, AdminNameContainer, Logo, Menus, SideNavContainer } from "..
 const SideNav = () => {
     const router = useRouter();
 
-    const currentPath = usePathname(); // 현재 경로 가져오기
+    // 현재 경로 가져오기
+    const currentPath = usePathname();
 
     return (
         <SideNavContainer>
             <AdminNameContainer>
                 <AdminName><ColorOrange>전체관리자</ColorOrange>님</AdminName>
             </AdminNameContainer>
-            <Menus>대시보드</Menus>
+            <Menus onClick={() => router.push('/dashboard/dashboardPage')} active={currentPath.startsWith('/dashboard')}>대시보드</Menus>
             <Menus onClick={() => router.push('/userManage/userManagePage')} active={currentPath.startsWith('/userManage')}>회원 관리</Menus>
             <Menus onClick={() => router.push('/movieManage/movieManagePage')} active={currentPath.startsWith('/movieManage')}>콘텐츠 관리</Menus>
             <Menus onClick={() => router.push('/QnAManage/QnAManagePage')} active={currentPath.startsWith('/QnAManage')}>1:1 문의</Menus>

@@ -75,6 +75,12 @@ export const MovieInfo = styled.tr`
 
 export const MovieName = styled.td`
     width: 40%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 0 20px;
+    max-width: 0; /* max-width 추가 */
 `
 
 export const ReleaseYear = styled.td`

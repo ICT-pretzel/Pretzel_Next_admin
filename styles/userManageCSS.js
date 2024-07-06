@@ -57,38 +57,37 @@ export const UserInfo = styled.tr`
 `
 
 export const UserID = styled.td`
-    width: 20%;
+    width: 30%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 0 20px;
+    max-width: 0; /* max-width 추가 */
+`
+
+export const UserName = styled.td`
+    width: 15%;
 `
 
 export const UserEmail = styled.td`
-    width: 30%;
-`
-
-export const UserBirth = styled.td`
-    width: 20%;
+    width: 25%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    box-sizing: border-box;
+    padding: 0 10px;
+    max-width: 0; /* max-width 추가 */
 `
 
 export const SuspensionStatus = styled.td`
     width: 10%;
 `
 
-export const SuspensionDate = styled.td`
-    width: 10%;
+export const Last_Login = styled.td`
+    width: 20%;
 `
 
-export const UserDetail = styled.td`
-    width: 10%;
-`
-
-export const DetailBtn = styled.button`
-    width: 70%;
-    height: 25px;
-    border-radius: 50px;
-    background-color: #4b4b4b;
-    border: none;
-    font-family: "Pretendard-Regular";
-    color: #ffffff;
-`
 export const Pagings = styled.div`
     display: flex;
     flex-direction: row;

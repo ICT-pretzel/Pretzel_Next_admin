@@ -53,7 +53,6 @@ const ReportDetailPage = () => {
                     content: response.data.content
                 });
             }
-            console.log(response.data);
         } catch (error) {
             console.error('상세 정보 가져오기 실패 : ', error);
         } finally {
@@ -84,17 +83,40 @@ const ReportDetailPage = () => {
         }
     }
 
-    // controller 수정되면 report_ok axios로 가기
     // 신고 보류 버튼 클릭 시 신고의 상태 변경
-    const report_pending = () => {
-        setReportDetail.report.status = '1';
-        report_detail()
+    async function report_pending() {
+        if (confirm("이 신고를 보류 상태로 처리하시겠습니까?")) {
+            setReportDetail.report.status = '1';
+
+            // controller 수정되면 report_ok axios로 가기
+            if (reportDetail.report.status = '1') {
+                alert("신고 보류 처리가 완료되었습니다.")
+                // 신고 상세정보 보여주는 function 재실행
+                report_detail();
+            } else {
+                alert("신고의 보류 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+            }
+        } else {
+            alert("보류 처리가 취소되었습니다.")
+        }
     }
 
     // 리뷰 삭제 버튼 클릭 시 신고의 상태 변경
-    const review_delete = () => {
-        setReportDetail.report.status = '0';
-        report_detail()
+    async function review_delete() {
+        if (confirm("신고당한 리뷰를 삭제하시겠습니까?")) {
+            setReportDetail.report.status = '0';
+            
+            // controller 수정되면 report_ok axios로 가기
+            if (reportDetail.report.status = '0') {
+                alert("신고당한 리뷰의 삭제 처리가 완료되었습니다.")
+                // 신고 상세정보 보여주는 function 재실행
+                report_detail();
+            } else {
+                alert("삭제 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+            }
+        } else {
+            alert("리뷰 삭제가 취소되었습니다.")
+        }
     }
 
     // 확인 버튼 클릭 시 리스트로 돌아가기

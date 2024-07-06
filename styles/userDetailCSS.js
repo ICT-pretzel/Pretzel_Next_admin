@@ -58,7 +58,7 @@ export const Profile_Info = styled.div`
 
 export const Profile_Nickname = styled.p`
     margin-bottom: 5px;
-    `
+`
 
 export const Profile_Birth = styled.p`
     margin-bottom: 5px;

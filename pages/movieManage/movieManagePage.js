@@ -10,10 +10,9 @@ import axios from "axios";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
 import { useRouter } from "next/navigation";
-
-const { AdminPageTitle } = require("../../styles/adminCommonCSS");
-const { Grade12, Grade15, Grade18, GradeAll, MovieName, ReleaseYear, MovieGrade, InfoEdit, InfoDelete, InformationMatch, MovieNum, MovieContainer, MovieContainer_Content, Pagings, PaginationPrev, PaginationNum, PaginationNext, MovieInfo_Title, MovieInfo, EditBtn, DeleteBtn, MovieAddBtn, SynchroBtn, Buttons, ButtonsContainer } = require("../../styles/movieManageCSS");
-const { SearchField } = require("../../styles/userManageCSS");
+import { AdminPageTitle } from "../../styles/adminCommonCSS";
+import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, PaginationNext, PaginationNum, PaginationPrev, Pagings, ReleaseYear, SynchroBtn } from "../../styles/movieManageCSS";
+import { SearchField } from "../../styles/userManageCSS";
 
 const MovieManagePage = observer(() => {
     const movieStore = useContext(MovieContext)
@@ -111,7 +110,7 @@ const MovieManagePage = observer(() => {
                     // 영화 리스트 보여주는 function 재실행
                     list_movie();
                 } else {
-                    alert("콘텐츠를 삭제하지 못했습니다.")
+                    alert("콘텐츠를 삭제하지 못했습니다. 다시 한 번 시도해 주세요.")
                 }
             } catch (error) {
                 console.error('영화 삭제 실패 : ', error)

@@ -62,7 +62,7 @@ export const AdminInfo = styled.tr`
 `
 
 export const Admin_ID = styled.td`
-    width: 39%;
+    width: 30%;
 `
 
 export const Admin_Right = styled.td`
@@ -70,9 +70,9 @@ export const Admin_Right = styled.td`
 `
 
 export const Admin_Reg = styled.td`
-    width: 27%;
+    width: 30%;
 `
 
 export const Admin_State = styled.td`
-    width: 14%;
+    width: 20%;
 `
