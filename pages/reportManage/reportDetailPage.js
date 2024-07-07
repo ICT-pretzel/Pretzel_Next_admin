@@ -7,12 +7,14 @@ import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
 import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../styles/reportDetailCSS";
 import Layout from "../commonLayout";
-import { ReportContext } from "../../stores/StoreContext";
-import { useRouter } from "next/router";
+import { AdminContext, ReportContext } from "../../stores/StoreContext";
 import LoadingSpinner from "../commons/loadingSpinner";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { observer } from "mobx-react-lite";
 
-const ReportDetailPage = () => {
+const ReportDetailPage = observer(() => {
+    const adminStore = useContext(AdminContext)
     const reportStore = useContext(ReportContext);
     const router = useRouter();
 
@@ -40,7 +42,7 @@ const ReportDetailPage = () => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 }
             );
@@ -153,6 +155,6 @@ const ReportDetailPage = () => {
             </Layout>
         </>
     )
-}
+})
 
 export default ReportDetailPage;

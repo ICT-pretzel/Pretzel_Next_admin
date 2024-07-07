@@ -3,7 +3,7 @@
 "use client";
 
 import { useContext, useEffect, useState } from "react";
-import { AnswerState, Profile_name, QnAContainer, QnAContainer_inner, QnAContent, QnANum, QnATable, QnATable_Title, QnATitle, Questioner, ResolvedAdmin, WriteDate } from "../../styles/QnAManageCSS";
+import { AnswerState, Profile_name, QnAContainer, QnAContainer_inner, QnANum, QnATable, QnATable_Title, QnATitle, Questioner, ResolvedAdmin, WriteDate } from "../../styles/QnAManageCSS";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorOrange } from "../../styles/commons/commonsCSS";
 import { observer } from "mobx-react-lite";

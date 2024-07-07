@@ -78,12 +78,3 @@ export const Loading = styled.div`
     align-items: center;
     justify-content: center;
 `
-
-export const MenuIcon = styled.img`
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-`

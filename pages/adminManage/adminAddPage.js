@@ -28,10 +28,12 @@ const AdminAddPage = observer(() => {
             if (response.data == '1') {
                 alert("관리자 추가가 완료되었습니다")
                 router.push('/adminManage/adminManagePage')
+                adminStore.setAdminInfo("role", "0");
             } else {
                 alert("관리자 추가를 다시 시도해주세요.")
             }
         } catch (error) {
+            alert("이미 존재하는 관리자 아이디입니다. \r\n관리자 추가를 다시 시도해주세요.")
             console.error('관리자 추가 실패 : ', error);
         }
     }

@@ -38,7 +38,7 @@ const AdminManagePage = observer(() => {
                     cPage: 1
                 },
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                    Authorization: `Bearer ${adminStore.token}`
                 }
             });
             if (response.data.admin_list.length > 0) {

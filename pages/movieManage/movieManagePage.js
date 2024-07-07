@@ -5,16 +5,17 @@
 import { observer } from "mobx-react-lite";
 import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../styles/commons/commonsCSS";
 import { useContext, useEffect, useState } from "react";
-import { MovieContext } from "../../stores/StoreContext";
+import { AdminContext, MovieContext } from "../../stores/StoreContext";
 import axios from "axios";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
 import { useRouter } from "next/navigation";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, PaginationNext, PaginationNum, PaginationPrev, Pagings, ReleaseYear, SynchroBtn } from "../../styles/movieManageCSS";
+import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, ReleaseYear, SynchroBtn } from "../../styles/movieManageCSS";
 import { SearchField } from "../../styles/userManageCSS";
 
 const MovieManagePage = observer(() => {
+    const adminStore = useContext(AdminContext)
     const movieStore = useContext(MovieContext)
     const router = useRouter();
 
@@ -101,7 +102,7 @@ const MovieManagePage = observer(() => {
                         movie_idx: movieStore.movieUpdate.movie_idx
                     },
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMDc3NjA4LCJleHAiOjE3MjAwODEyMDh9.DtItypQaMMzLYiK86ME0MXL562uc8zzrdM-mMi-hNEA'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 });
                 console.log(response.data)
@@ -164,11 +165,6 @@ const MovieManagePage = observer(() => {
                         ))}
                     </MovieContainer_Content>
                 </MovieContainer>
-                <Pagings>
-                    <PaginationPrev>이전</PaginationPrev>
-                    <PaginationNum>1 &#160;&#160;2 &#160;&#160;3 &#160;&#160;4 &#160;&#160;5</PaginationNum>
-                    <PaginationNext>다음</PaginationNext>
-                </Pagings>
             </Layout>
         </>
     )

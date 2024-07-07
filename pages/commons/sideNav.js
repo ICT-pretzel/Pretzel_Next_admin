@@ -5,8 +5,12 @@
 import { usePathname, useRouter } from "next/navigation";
 import { ColorOrange } from "../../styles/commons/commonsCSS";
 import { AdminName, AdminNameContainer, Logo, Menus, SideNavContainer } from "../../styles/sideNavCSS";
+import { AdminContext } from "../../stores/StoreContext";
+import { useContext } from "react";
+import { observer } from "mobx-react-lite";
 
-const SideNav = () => {
+const SideNav = observer(() => {
+    const adminStore = useContext(AdminContext)
     const router = useRouter();
 
     // 현재 경로 가져오기
@@ -15,7 +19,7 @@ const SideNav = () => {
     return (
         <SideNavContainer>
             <AdminNameContainer>
-                <AdminName><ColorOrange>전체관리자</ColorOrange>님</AdminName>
+                <AdminName><ColorOrange>{adminStore.name}</ColorOrange>님</AdminName>
             </AdminNameContainer>
             <Menus onClick={() => router.push('/dashboard/dashboardPage')} active={currentPath.startsWith('/dashboard')}>대시보드</Menus>
             <Menus onClick={() => router.push('/userManage/userManagePage')} active={currentPath.startsWith('/userManage')}>회원 관리</Menus>
@@ -26,6 +30,6 @@ const SideNav = () => {
             <Logo>pretzel</Logo>
         </SideNavContainer>
     )
-}
+})
 
 export default SideNav;

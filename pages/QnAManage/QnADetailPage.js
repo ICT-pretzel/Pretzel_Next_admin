@@ -6,12 +6,13 @@ import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorGray, Loading } from "../../styles/commons/commonsCSS";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { QnaContext } from "../../stores/StoreContext";
+import { AdminContext, QnaContext } from "../../stores/StoreContext";
 import LoadingSpinner from "../commons/loadingSpinner";
 import Layout from "../commonLayout";
 import { useRouter } from "next/navigation";
 
 const QnADetailPage = observer(() => {
+    const adminStore = useContext(AdminContext)
     const qnaStore = useContext(QnaContext);
     const router = useRouter();
 
@@ -49,7 +50,7 @@ const QnADetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 }
             );
@@ -133,7 +134,7 @@ const QnADetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE5ODIwODMyLCJleHAiOjE3MTk4MjQ0MzJ9.A9M8mGOUE22tJmkvg4zqIvqqVca3KDt-ygk37ordauI'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 }
             );

@@ -8,12 +8,13 @@ import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
 import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../../styles/userDetailCSS";
 import Layout from "../commonLayout";
 import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { UserContext } from "../../stores/StoreContext";
+import { AdminContext, UserContext } from "../../stores/StoreContext";
 import axios from "axios";
 import LoadingSpinner from "../commons/loadingSpinner";
+import { useRouter } from "next/navigation";
 
 const UserDetailPage = observer(() => {
+    const adminStore = useContext(AdminContext)
     const userStore = useContext(UserContext)
     const router = useRouter();
 
@@ -44,7 +45,7 @@ const UserDetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMDc3NjA4LCJleHAiOjE3MjAwODEyMDh9.DtItypQaMMzLYiK86ME0MXL562uc8zzrdM-mMi-hNEA'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 });
             const response2 = await axios.post(API_URL + "profile_list",
@@ -53,7 +54,7 @@ const UserDetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMDc3NjA4LCJleHAiOjE3MjAwODEyMDh9.DtItypQaMMzLYiK86ME0MXL562uc8zzrdM-mMi-hNEA'
+                        Authorization: `Bearer ${adminStore.token}`
                     }
                 });
             if (response.data && response2.data) {
@@ -98,7 +99,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                            Authorization: `Bearer ${adminStore.token}`
                         }
                     }
                 );
@@ -127,7 +128,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                            Authorization: `Bearer ${adminStore.token}`
                         }
                     }
                 );
@@ -156,7 +157,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMTcwNzk2LCJleHAiOjE3MjAxNzQzOTZ9.93BrxP3fp4YTrUJZ_uFrHCG7naIoxSWJwNlkBGXRui0'
+                            Authorization: `Bearer ${adminStore.token}`
                         }
                     }
                 );

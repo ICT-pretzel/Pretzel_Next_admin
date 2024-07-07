@@ -1,7 +1,6 @@
 "use client";
 
 import { observer } from "mobx-react-lite";
-import Layout from "../commonLayout";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { Chart, Chart_All_Container, Chart_Container, Chart_Container_inner, Chart_title } from "../../styles/dashboardCSS";
 import { BarChart, LineChart, PieChart, pieArcLabelClasses } from "@mui/x-charts";
@@ -10,6 +9,7 @@ import LoadingSpinner from "../commons/loadingSpinner";
 import axios from "axios";
 import dayjs from "dayjs";
 import { AdminContext } from "../../stores/StoreContext";
+import Common from "../commonLayout";
 
 const DashboardPage = observer(() => {
     const adminStore = useContext(AdminContext)
@@ -31,6 +31,7 @@ const DashboardPage = observer(() => {
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
+        console.log("test",adminStore.token);
         chart_data()
     }, []);
 
@@ -39,6 +40,8 @@ const DashboardPage = observer(() => {
     // 차트 데이터
     async function chart_data() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+        console.log("gggg",adminStore.name)
+        console.log("rrrr",adminStore.token)
 
         try {
             const response = await axios.get(API_URL + "sub_count",
@@ -107,7 +110,7 @@ const DashboardPage = observer(() => {
 
     return (
         <>
-            <Layout>
+            <Common>
                 <AdminPageTitle>대시보드</AdminPageTitle>
 
                 <Chart_All_Container>
@@ -361,7 +364,7 @@ const DashboardPage = observer(() => {
                         </Chart_Container_inner>
                     </Chart_Container>
                 </Chart_All_Container>
-            </Layout>
+            </Common>
         </>
     )
 })

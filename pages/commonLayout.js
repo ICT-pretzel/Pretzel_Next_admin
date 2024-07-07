@@ -9,8 +9,10 @@ import SideNav from './commons/sideNav';
 import { AdminContentContainer, AllAdminContainer, Whitespace } from '../styles/adminCommonCSS';
 import TopBtn from './commons/topBtn';
 import LogoutBtn from './commons/logoutBtn';
+import { observer } from 'mobx-react-lite';
 
-const Layout = ({ children }) => {
+const Common = observer(({ children }) => {
+
     return (
         <>
             <SideNav />
@@ -24,6 +26,6 @@ const Layout = ({ children }) => {
             <LogoutBtn />
         </>
     );
-};
+})
 
-export default Layout;
+export default Common;

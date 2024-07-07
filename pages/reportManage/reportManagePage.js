@@ -5,13 +5,14 @@
 import { useContext, useEffect, useState } from "react";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorOrange } from "../../styles/commons/commonsCSS";
-import { AdministratorName, PaginationNext, PaginationNum, PaginationPrev, Pagings, Processing, ReportContainer, ReportContainer_inner, ReportDate, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../styles/reportManageCSS";
+import { AdministratorName, Processing, ReportContainer, ReportContainer_inner, ReportDate, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../styles/reportManageCSS";
 import Layout from "../commonLayout";
-import { useRouter } from "next/router";
 import { ReportContext } from "../../stores/StoreContext";
 import { observer } from "mobx-react-lite";
 import axios from "axios";
 import LoadingSpinner from "../commons/loadingSpinner";
+import { useRouter } from "next/navigation";
+import { PaginationNext, PaginationNum, PaginationPrev, Pagings } from "../../styles/commons/pagingCSS";
 
 const ReportManagePage = observer(() => {
     const reportStore = useContext(ReportContext)
@@ -33,7 +34,7 @@ const ReportManagePage = observer(() => {
     // 신고 리스트 보여주는 function
     async function report_list() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-        
+
         try {
             const response = await axios.get(API_URL + "report_list", {
                 params: {
@@ -50,7 +51,7 @@ const ReportManagePage = observer(() => {
             setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
     }
-    
+
     // 로딩중일 때
     if (isLoading) {
         return <LoadingSpinner />
@@ -87,6 +88,7 @@ const ReportManagePage = observer(() => {
                         ))}
                     </ ReportContainer_inner>
                 </ ReportContainer>
+
                 <Pagings>
                     <PaginationPrev>이전</PaginationPrev>
                     <PaginationNum>1 &#160;&#160;2 &#160;&#160;3 &#160;&#160;4 &#160;&#160;5</PaginationNum>

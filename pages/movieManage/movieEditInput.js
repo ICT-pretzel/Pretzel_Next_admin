@@ -6,11 +6,12 @@ import { useContext } from "react";
 import { EditBtn, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, MovieUpload, OriginalContent, SelectGenre } from "../../styles/movieAddCSS";
 
 import { observer } from "mobx-react-lite";
-import { MovieContext } from "../../stores/StoreContext";
+import { AdminContext, MovieContext } from "../../stores/StoreContext";
 import axios from "axios";
 
 const MovieEditInput = observer(() => {
 
+    const adminStore = useContext(AdminContext)
     const movieStore = useContext(MovieContext)
 
     /* 영화 수정 정보 */
@@ -41,7 +42,7 @@ const MovieEditInput = observer(() => {
                     movie_idx: movieStore.movieUpdate.movie_idx
                     },
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzE5ODIwODMyLCJleHAiOjE3MTk4MjQ0MzJ9.A9M8mGOUE22tJmkvg4zqIvqqVca3KDt-ygk37ordauI',
+                    Authorization: `Bearer ${adminStore.token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });

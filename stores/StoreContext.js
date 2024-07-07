@@ -1,8 +1,8 @@
 import React from "react";
 import adminStore from "./adminStore";
 import movieStore from "./movieStore";
-import qnaStore from "./qnaStore";
 import reportStore from "./reportStore";
+import qnaStore from "./QnAStore";
 import userStore from "./userStore";
 
 // React Context 생성
@@ -12,25 +12,34 @@ export const QnaContext = React.createContext(qnaStore);
 export const ReportContext = React.createContext(reportStore);
 export const UserContext = React.createContext(userStore);
 
-// Context Provider 컴포넌트 생성 
-export const StoreProvider = ({children}) =>{
-    return (
-        <>
-            <AdminContext.Provider value={adminStore}>
-                {children}
-            </AdminContext.Provider>
-            <MovieContext.Provider value={movieStore}>
-                {children}
-            </MovieContext.Provider>
-            <QnaContext.Provider value={qnaStore}>
-                {children}
-            </QnaContext.Provider>
-            <ReportContext.Provider value={reportStore}>
-                {children}
-            </ReportContext.Provider>
-            <UserContext.Provider value={userStore}>
-                {children}
-            </UserContext.Provider>
-        </>
-    )
-}
+// Context Provider 컴포넌트 생성
+// 개별 Context Provider 컴포넌트 생성
+export const AdminProvider = ({ children }) => (
+    <AdminContext.Provider value={adminStore}>
+        {children}
+    </AdminContext.Provider>
+);
+
+export const MovieProvider = ({ children }) => (
+    <MovieContext.Provider value={movieStore}>
+        {children}
+    </MovieContext.Provider>
+);
+
+export const QnaProvider = ({ children }) => (
+    <QnaContext.Provider value={qnaStore}>
+        {children}
+    </QnaContext.Provider>
+);
+
+export const ReportProvider = ({ children }) => (
+    <ReportContext.Provider value={reportStore}>
+        {children}
+    </ReportContext.Provider>
+);
+
+export const UserProvider = ({ children }) => (
+    <UserContext.Provider value={userStore}>
+        {children}
+    </UserContext.Provider>
+);

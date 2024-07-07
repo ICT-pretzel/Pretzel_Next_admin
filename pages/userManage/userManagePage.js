@@ -2,17 +2,19 @@
 
 "use client";
 
-import { Last_Login, PaginationNext, PaginationNum, PaginationPrev, Pagings, SearchField, SuspensionStatus, UserContainer, UserContainerContent, UserEmail, UserID, UserInfo, UserInfoTitle, UserName, UserNum } from "../../styles/userManageCSS";
+import { Last_Login, SearchField, SuspensionStatus, UserContainer, UserContainerContent, UserEmail, UserID, UserInfo, UserInfoTitle, UserName, UserNum } from "../../styles/userManageCSS";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorOrange } from "../../styles/commons/commonsCSS";
 import Layout from "../commonLayout";
 import { observer } from "mobx-react-lite";
-import { UserContext } from "../../stores/StoreContext";
+import { AdminContext, UserContext } from "../../stores/StoreContext";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import LoadingSpinner from "../commons/loadingSpinner";
 
 const UserManagePage = observer(() => {
+    const adminStore = useContext(AdminContext)
     const userStore = useContext(UserContext)
     const router = useRouter();
 
@@ -52,7 +54,7 @@ const UserManagePage = observer(() => {
                     keyword: userStore.keyword
                 },
                 headers: {
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNzIwMDc3NjA4LCJleHAiOjE3MjAwODEyMDh9.DtItypQaMMzLYiK86ME0MXL562uc8zzrdM-mMi-hNEA'
+                    Authorization: `Bearer ${adminStore.token}`
                 }
             });
             console.log(response.data)
@@ -64,6 +66,11 @@ const UserManagePage = observer(() => {
         } finally {
             setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
+    }
+
+    // 로딩중일 때
+    if (isLoading) {
+        return <LoadingSpinner />
     }
 
     // 유저 상세 들어가기
@@ -103,11 +110,6 @@ const UserManagePage = observer(() => {
                         ))}
                     </UserContainerContent>
                 </UserContainer>
-                <Pagings>
-                    <PaginationPrev>이전</PaginationPrev>
-                    <PaginationNum>1 &#160;&#160;2 &#160;&#160;3 &#160;&#160;4 &#160;&#160;5</PaginationNum>
-                    <PaginationNext>다음</PaginationNext>
-                </Pagings>
             </Layout>
         </>
     )

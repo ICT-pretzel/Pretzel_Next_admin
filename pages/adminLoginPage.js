@@ -10,8 +10,12 @@ import { observer } from 'mobx-react-lite';
 import { AdminContext } from '../stores/StoreContext';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import LoadingSpinner from './commons/loadingSpinner';
 
 const AdminLoginPage = observer(() => {
+    const router = useRouter();
+    const adminStore = useContext(AdminContext);
+    
     // 비밀번호 가시성 여부
     const [showPassword, setShowPassword] = useState(false);
 
@@ -19,9 +23,6 @@ const AdminLoginPage = observer(() => {
     const togglePasswordVisibility = () => {
         setShowPassword(prevShowPassword => !prevShowPassword);
     };
-
-    const router = useRouter();
-    const adminStore = useContext(AdminContext)
 
     // 아이디
     const onChangeId = (e) => {
@@ -37,8 +38,6 @@ const AdminLoginPage = observer(() => {
 
     // 관리자 로그인 function
     async function admin_login() {
-        console.log(adminStore.admin_id)
-        console.log(adminStore.pwd)
         if (adminStore.admin_id === '' && adminStore.pwd === '') {
             alert("아이디와 비밀번호를 입력해 주세요.")
         } else if (adminStore.admin_id === '') {
@@ -51,10 +50,12 @@ const AdminLoginPage = observer(() => {
                     admin_id: adminStore.admin_id,
                     pwd: adminStore.pwd
                 });
-                console.log(response.data)
                 if (response.data.success) {
-                    console.log("test");
+                    adminStore.setToken(response.data.token)
+                    adminStore.setName(response.data.userDetails.name)
+                    console.log("처음",adminStore.token);
                     router.push('/dashboard/dashboardPage')
+                    return <LoadingSpinner />;
                 } else {
                     alert("존재하지 않는 관리자입니다. \r\n아이디나 비밀번호를 다시 입력해주세요.")
                     adminStore.setAdminId("");
