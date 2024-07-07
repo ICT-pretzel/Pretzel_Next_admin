@@ -6,7 +6,6 @@ import { observer } from "mobx-react-lite";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
 import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../../styles/userDetailCSS";
-import Layout from "../commonLayout";
 import { useContext, useEffect, useState } from "react";
 import { AdminContext, UserContext } from "../../stores/StoreContext";
 import axios from "axios";
@@ -183,54 +182,52 @@ const UserDetailPage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>회원 상세</AdminPageTitle>
-                <UserInfoAllContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>이름</UserInfoTitle>
-                        <UserInfo>{userDetail.name}</UserInfo>
-                    </UserInfoContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>아이디</UserInfoTitle>
-                        <UserInfo>{userDetail.user_id}</UserInfo>
-                    </UserInfoContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>이메일</UserInfoTitle>
-                        <UserInfo>{userDetail.email}</UserInfo>
-                    </UserInfoContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>최근 접속</UserInfoTitle>
-                        <UserInfo>{userDetail.last_login}</UserInfo>
-                    </UserInfoContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>구독 상태</UserInfoTitle>
-                        <UserInfo>{userDetail.subs === null ? 'X' : userDetail.subs}</UserInfo>
-                    </UserInfoContainer>
-                    <UserInfoContainer>
-                        <UserInfoTitle>정지 여부</UserInfoTitle>
-                        <UserInfo>{userDetail.status === '1' ? 'X' : <ColorOrange>O</ColorOrange>}</UserInfo>
-                    </UserInfoContainer>
-                </UserInfoAllContainer>
-                <HorizontalLine />
+            <AdminPageTitle>회원 상세</AdminPageTitle>
+            <UserInfoAllContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>이름</UserInfoTitle>
+                    <UserInfo>{userDetail.name}</UserInfo>
+                </UserInfoContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>아이디</UserInfoTitle>
+                    <UserInfo>{userDetail.user_id}</UserInfo>
+                </UserInfoContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>이메일</UserInfoTitle>
+                    <UserInfo>{userDetail.email}</UserInfo>
+                </UserInfoContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>최근 접속</UserInfoTitle>
+                    <UserInfo>{userDetail.last_login}</UserInfo>
+                </UserInfoContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>구독 상태</UserInfoTitle>
+                    <UserInfo>{userDetail.subs === null ? 'X' : userDetail.subs}</UserInfo>
+                </UserInfoContainer>
+                <UserInfoContainer>
+                    <UserInfoTitle>정지 여부</UserInfoTitle>
+                    <UserInfo>{userDetail.status === '1' ? 'X' : <ColorOrange>O</ColorOrange>}</UserInfo>
+                </UserInfoContainer>
+            </UserInfoAllContainer>
+            <HorizontalLine />
 
-                <ProfileTitle>프로필</ProfileTitle>
-                <ProfileAllContainer>
-                    {userProfile.map((k) => (
-                        <ProfileContainer key={k.profile_idx}>
-                            {/* 프로필 이미지 경로 넣어주기 */}
-                            <Profile_Img src="" />
-                            <Profile_Info>
-                                <Profile_Nickname>프로필명 &#160;<ColorGray>{k.name}</ColorGray></Profile_Nickname>
-                                <Profile_Birth>생년월일 &#160;<ColorGray>{k.birth}</ColorGray></Profile_Birth>
-                                <Profile_Gender>성별 &#160;<ColorGray>{k.gender === '1' ? '남성' : '여성'}</ColorGray></Profile_Gender>
-                            </Profile_Info>
-                        </ProfileContainer>
-                    ))}
+            <ProfileTitle>프로필</ProfileTitle>
+            <ProfileAllContainer>
+                {userProfile.map((k) => (
+                    <ProfileContainer key={k.profile_idx}>
+                        {/* 프로필 이미지 경로 넣어주기 */}
+                        <Profile_Img src="" />
+                        <Profile_Info>
+                            <Profile_Nickname>프로필명 &#160;<ColorGray>{k.name}</ColorGray></Profile_Nickname>
+                            <Profile_Birth>생년월일 &#160;<ColorGray>{k.birth}</ColorGray></Profile_Birth>
+                            <Profile_Gender>성별 &#160;<ColorGray>{k.gender === '1' ? '남성' : '여성'}</ColorGray></Profile_Gender>
+                        </Profile_Info>
+                    </ProfileContainer>
+                ))}
 
-                </ProfileAllContainer>
+            </ProfileAllContainer>
 
-                {buttons()}
-            </Layout>
+            {buttons()}
         </>
     )
 })

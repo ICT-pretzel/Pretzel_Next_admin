@@ -5,8 +5,8 @@ import { useContext } from "react";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { AdminDetail_Container, AdminInfo, AdminInfo_Container, AdminInfo_Radio, AdminInfo_Title, EditBtn, List_Container, MemoBox, Process_List, Radio_Container, Radio_Label } from "../../styles/adminDetailCSS";
 
-import AdminDetailQnA from "./adminDetailQnA";
-import AdminDetailReport from "./adminDetailReport";
+import AdminDetailQnA from "../adminDetailQnA/page";
+import AdminDetailReport from "../adminDetailReport/page";
 import { AdminContext } from "../../stores/StoreContext";
 import { observer } from "mobx-react-lite";
 import Layout from "../commonLayout";

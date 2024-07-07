@@ -3,20 +3,21 @@
 "use client"
 
 import { useRouter } from "next/navigation";
-import { LogoutButton } from "../../styles/commons/commonsCSS";
 import { useContext } from "react";
-import { AdminContext } from "../../stores/StoreContext";
 import { observer } from "mobx-react-lite";
+import { LogoutButton } from "../../../../styles/commons/commonsCSS";
+import { AdminContext, LoginContext } from "../../../../stores/StoreContext";
+import LoadingSpinner from "../../../loadingSpinner/page";
 
 const LogoutBtn = observer(() => {
-    const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
     const router = useRouter();
 
     const onClickLogout = () => {
         if (confirm("로그아웃을 하시겠습니까?")) {
-            router.push('/')
-            adminStore.setToken("");
-            adminStore.setName("");
+            loginStore.setToken("","","","");
+            router.push('../adminLoginPage')
+            return <LoadingSpinner />;
         } else {
             alert("로그아웃이 취소되었습니다.")
         }

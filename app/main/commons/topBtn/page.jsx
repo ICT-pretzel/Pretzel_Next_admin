@@ -3,7 +3,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Icon24px, TopButton } from "../../styles/commons/commonsCSS";
+import { Icon24px, TopButton } from "../../../../styles/commons/commonsCSS";
 
 const TopBtn = () => {
     const [isVisible, setIsVisible] = useState(false);

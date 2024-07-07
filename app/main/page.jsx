@@ -5,13 +5,12 @@ import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { Chart, Chart_All_Container, Chart_Container, Chart_Container_inner, Chart_title } from "../../styles/dashboardCSS";
 import { BarChart, LineChart, PieChart, pieArcLabelClasses } from "@mui/x-charts";
 import { useContext, useEffect, useState } from "react";
-import LoadingSpinner from "../commons/loadingSpinner";
 import axios from "axios";
 import dayjs from "dayjs";
 import { AdminContext } from "../../stores/StoreContext";
-import Common from "../commonLayout";
+import LoadingSpinner from "../loadingSpinner/page";
 
-const DashboardPage = observer(() => {
+const Main = observer(() => {
     const adminStore = useContext(AdminContext)
 
     // 구독별 유저 수
@@ -40,8 +39,6 @@ const DashboardPage = observer(() => {
     // 차트 데이터
     async function chart_data() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-        console.log("gggg",adminStore.name)
-        console.log("rrrr",adminStore.token)
 
         try {
             const response = await axios.get(API_URL + "sub_count",
@@ -84,7 +81,7 @@ const DashboardPage = observer(() => {
 
     // 로딩중일 때
     if (isLoading) {
-        return <LoadingSpinner />
+         return <LoadingSpinner />
     }
 
     // 장르별 차트 색상 지정
@@ -110,7 +107,6 @@ const DashboardPage = observer(() => {
 
     return (
         <>
-            <Common>
                 <AdminPageTitle>대시보드</AdminPageTitle>
 
                 <Chart_All_Container>
@@ -364,9 +360,8 @@ const DashboardPage = observer(() => {
                         </Chart_Container_inner>
                     </Chart_Container>
                 </Chart_All_Container>
-            </Common>
         </>
     )
 })
 
-export default DashboardPage;
+export default Main;

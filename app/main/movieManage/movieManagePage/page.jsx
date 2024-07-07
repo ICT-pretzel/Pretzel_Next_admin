@@ -7,8 +7,6 @@ import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../styles/commo
 import { useContext, useEffect, useState } from "react";
 import { AdminContext, MovieContext } from "../../stores/StoreContext";
 import axios from "axios";
-import LoadingSpinner from "../commons/loadingSpinner";
-import Layout from "../commonLayout";
 import { useRouter } from "next/navigation";
 import { AdminPageTitle } from "../../styles/adminCommonCSS";
 import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, ReleaseYear, SynchroBtn } from "../../styles/movieManageCSS";
@@ -49,15 +47,8 @@ const MovieManagePage = observer(() => {
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
-            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
     }
-
-    // 로딩중일 때
-    if (isLoading) {
-        return <LoadingSpinner />
-    }
-
     // 영화 검색 - 검색어
     const onChangeKeyword = (e) => {
         movieStore.setKeyword(e.target.value)
@@ -123,49 +114,47 @@ const MovieManagePage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>콘텐츠 관리</AdminPageTitle>
-                <SearchField
-                    type="text"
-                    name="keyword"
-                    onChange={onChangeKeyword}
-                    placeholder="영화명을 입력해 주세요. (한글, 영어 가능)"
-                    onKeyDown={handleKeyDown} />
-                <ButtonsContainer>
-                    <MovieNum>총 영화수 <ColorOrange>{movieList.count}</ColorOrange></MovieNum>
-                    <Buttons>
-                        <MovieAddBtn onClick={onClickAddMovie}>영화 추가</MovieAddBtn>
-                        {/* 동기화 버튼 구현은 나중에 */}
-                        <SynchroBtn>TMDB 동기화</SynchroBtn>
-                    </Buttons>
-                </ButtonsContainer>
-                <MovieContainer>
-                    <MovieContainer_Content>
-                        <MovieInfo_Title>
-                            <MovieName>영화명</MovieName>
-                            <ReleaseYear>개봉년도</ReleaseYear>
-                            <MovieGrade>등급</MovieGrade>
-                            <InfoEdit>수정</InfoEdit>
-                            <InfoDelete>삭제</InfoDelete>
-                            <InformationMatch>일치 여부</InformationMatch>
-                        </MovieInfo_Title>
-                        {movieList.movie_list.map((k) => (
-                            <MovieInfo key={k.movie_idx}>
-                                <MovieName>{k.korea_title}</MovieName>
-                                <ReleaseYear>{k.release_date.slice(0, 4)}</ReleaseYear>
-                                <MovieGrade>{k.movie_grade === '18' ? <Grade18>18</Grade18> :
-                                    k.movie_grade === '12' ? <Grade12>12</Grade12> :
-                                        k.movie_grade === '15' ? <Grade15>15</Grade15> :
-                                            k.movie_grade === '' ? <ColorGray>없음</ColorGray> :
-                                                <GradeAll>ALL</GradeAll>}</MovieGrade>
-                                <InfoEdit><EditBtn onClick={() => onClickEdit(k)}>수정</EditBtn></InfoEdit>
-                                <InfoDelete><DeleteBtn onClick={() => delete_movie(k)}>삭제</DeleteBtn></InfoDelete>
-                                <InformationMatch>{k.synchro === '1' ? <ColorGreen>일치</ColorGreen> : <ColorRed>불일치</ColorRed>}</InformationMatch>
-                            </MovieInfo>
-                        ))}
-                    </MovieContainer_Content>
-                </MovieContainer>
-            </Layout>
+            <AdminPageTitle>콘텐츠 관리</AdminPageTitle>
+            <SearchField
+                type="text"
+                name="keyword"
+                onChange={onChangeKeyword}
+                placeholder="영화명을 입력해 주세요. (한글, 영어 가능)"
+                onKeyDown={handleKeyDown} />
+            <ButtonsContainer>
+                <MovieNum>총 영화수 <ColorOrange>{movieList.count}</ColorOrange></MovieNum>
+                <Buttons>
+                    <MovieAddBtn onClick={onClickAddMovie}>영화 추가</MovieAddBtn>
+                    {/* 동기화 버튼 구현은 나중에 */}
+                    <SynchroBtn>TMDB 동기화</SynchroBtn>
+                </Buttons>
+            </ButtonsContainer>
+            <MovieContainer>
+                <MovieContainer_Content>
+                    <MovieInfo_Title>
+                        <MovieName>영화명</MovieName>
+                        <ReleaseYear>개봉년도</ReleaseYear>
+                        <MovieGrade>등급</MovieGrade>
+                        <InfoEdit>수정</InfoEdit>
+                        <InfoDelete>삭제</InfoDelete>
+                        <InformationMatch>일치 여부</InformationMatch>
+                    </MovieInfo_Title>
+                    {movieList.movie_list.map((k) => (
+                        <MovieInfo key={k.movie_idx}>
+                            <MovieName>{k.korea_title}</MovieName>
+                            <ReleaseYear>{k.release_date.slice(0, 4)}</ReleaseYear>
+                            <MovieGrade>{k.movie_grade === '18' ? <Grade18>18</Grade18> :
+                                k.movie_grade === '12' ? <Grade12>12</Grade12> :
+                                    k.movie_grade === '15' ? <Grade15>15</Grade15> :
+                                        k.movie_grade === '' ? <ColorGray>없음</ColorGray> :
+                                            <GradeAll>ALL</GradeAll>}</MovieGrade>
+                            <InfoEdit><EditBtn onClick={() => onClickEdit(k)}>수정</EditBtn></InfoEdit>
+                            <InfoDelete><DeleteBtn onClick={() => delete_movie(k)}>삭제</DeleteBtn></InfoDelete>
+                            <InformationMatch>{k.synchro === '1' ? <ColorGreen>일치</ColorGreen> : <ColorRed>불일치</ColorRed>}</InformationMatch>
+                        </MovieInfo>
+                    ))}
+                </MovieContainer_Content>
+            </MovieContainer>
         </>
     )
 })

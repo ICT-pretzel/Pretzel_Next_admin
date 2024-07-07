@@ -8,11 +8,11 @@ import { CheckIcon, Keyword, MovieContainer, MoviePoster, MovieTitle, NoSearchRe
 
 import { observer } from "mobx-react-lite";
 import { MovieContext } from "../../stores/StoreContext";
+import MovieAddInput from "../movieAddInput/page";
 import axios from "axios";
-import MovieEditInput from "./movieEditInput";
 import Layout from "../commonLayout";
 
-const MovieEditPage = observer(() => {
+const MovieAddPage = observer(() => {
     const movieStore = useContext(MovieContext)
 
     // 영화 검색 - 검색어, 개봉년도
@@ -30,7 +30,7 @@ const MovieEditPage = observer(() => {
 
     // 영화 클릭시
     const onClickMovie = (movie_id) => {
-        movieStore.setMovieUpdate("movie_id", movie_id);
+        movieStore.setMovieInfo("movie_id", movie_id);
     }
 
     const API_URL = "/movie/"
@@ -88,12 +88,7 @@ const MovieEditPage = observer(() => {
                 <SearchContainer>
                     <SearchContainer_inner>
                         <SearchTitle>제목</SearchTitle>
-                        <Keyword
-                            type="text"
-                            name="query"
-                            onChange={onChangeQuery}
-                            placeholder="영화 제목을 입력해 주세요."
-                            defaultValue={movieStore.movieUpdate.tmdb_title} />
+                        <Keyword type="text" name="query" onChange={onChangeQuery} placeholder="영화 제목을 입력해 주세요." />
                     </SearchContainer_inner>
                     <SearchContainer_inner>
                         <SearchTitle>개봉년도</SearchTitle>
@@ -115,10 +110,10 @@ const MovieEditPage = observer(() => {
                 </MovieContainer>
 
                 {/* 영화 정보 입력 */}
-                <MovieEditInput />
+                <MovieAddInput />
             </Layout>
         </>
     )
 })
 
-export default MovieEditPage;
+export default MovieAddPage;

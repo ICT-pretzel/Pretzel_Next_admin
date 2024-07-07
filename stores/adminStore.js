@@ -8,7 +8,7 @@ class AdminStore {
         pwd: '',
         role: '0',
         note: '',
-        status: '1'
+        status: '1',
     };
 
     // 아이디

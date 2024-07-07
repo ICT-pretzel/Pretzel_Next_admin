@@ -2,16 +2,15 @@
 
 "use client";
 
-import { Last_Login, SearchField, SuspensionStatus, UserContainer, UserContainerContent, UserEmail, UserID, UserInfo, UserInfoTitle, UserName, UserNum } from "../../styles/userManageCSS";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { ColorOrange } from "../../styles/commons/commonsCSS";
-import Layout from "../commonLayout";
 import { observer } from "mobx-react-lite";
-import { AdminContext, UserContext } from "../../stores/StoreContext";
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import LoadingSpinner from "../commons/loadingSpinner";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import { Last_Login, SearchField, SuspensionStatus, UserContainer, UserContainerContent, UserEmail, UserID, UserInfo, UserInfoTitle, UserName, UserNum } from "../../../../styles/userManageCSS";
+import { AdminContext, UserContext } from "../../../../stores/StoreContext";
+import { ColorOrange } from "../../../../styles/commons/commonsCSS";
 
 const UserManagePage = observer(() => {
     const adminStore = useContext(AdminContext)
@@ -81,36 +80,34 @@ const UserManagePage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>회원 관리</AdminPageTitle>
-                <SearchField
-                    type="text"
-                    name="keyword"
-                    placeholder="이름 또는 아이디, 이메일을 입력해 주세요."
-                    onChange={onChangeKeyword}
-                    onKeyDown={handleKeyDown} />
-                <UserNum>회원 <ColorOrange>{userList.count}</ColorOrange>명</UserNum>
-                <UserContainer>
-                    <UserContainerContent>
-                        <UserInfoTitle>
-                            <UserID>아이디</UserID>
-                            <UserName>이름</UserName>
-                            <UserEmail>이메일</UserEmail>
-                            <SuspensionStatus>정지 여부</SuspensionStatus>
-                            <Last_Login>최근 로그인</Last_Login>
-                        </UserInfoTitle>
-                        {userList.user_list.map((k) => (
-                            <UserInfo key={k.user_idx} onClick={() => onClickUser(k.user_id)}>
-                                <UserID>{k.user_id}</UserID>
-                                <UserName>{k.name}</UserName>
-                                <UserEmail>{k.email}</UserEmail>
-                                <SuspensionStatus>{k.status === '1' ? 'X' : <ColorOrange>O</ColorOrange>}</SuspensionStatus>
-                                <Last_Login>{k.last_login}</Last_Login>
-                            </UserInfo>
-                        ))}
-                    </UserContainerContent>
-                </UserContainer>
-            </Layout>
+            <AdminPageTitle>회원 관리</AdminPageTitle>
+            <SearchField
+                type="text"
+                name="keyword"
+                placeholder="이름 또는 아이디, 이메일을 입력해 주세요."
+                onChange={onChangeKeyword}
+                onKeyDown={handleKeyDown} />
+            <UserNum>회원 <ColorOrange>{userList.count}</ColorOrange>명</UserNum>
+            <UserContainer>
+                <UserContainerContent>
+                    <UserInfoTitle>
+                        <UserID>아이디</UserID>
+                        <UserName>이름</UserName>
+                        <UserEmail>이메일</UserEmail>
+                        <SuspensionStatus>정지 여부</SuspensionStatus>
+                        <Last_Login>최근 로그인</Last_Login>
+                    </UserInfoTitle>
+                    {userList.user_list.map((k) => (
+                        <UserInfo key={k.user_idx} onClick={() => onClickUser(k.user_id)}>
+                            <UserID>{k.user_id}</UserID>
+                            <UserName>{k.name}</UserName>
+                            <UserEmail>{k.email}</UserEmail>
+                            <SuspensionStatus>{k.status === '1' ? 'X' : <ColorOrange>O</ColorOrange>}</SuspensionStatus>
+                            <Last_Login>{k.last_login}</Last_Login>
+                        </UserInfo>
+                    ))}
+                </UserContainerContent>
+            </UserContainer>
         </>
     )
 })

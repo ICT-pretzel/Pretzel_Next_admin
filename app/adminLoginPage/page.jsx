@@ -1,20 +1,22 @@
 "use client";
 
-import '../styles/commons/reset.css'
-import '../styles/commons/font.css'
-import '../styles/commons/commons.css'
+import '../../styles/commons/reset.css'
+import '../../styles/commons/font.css'
+import '../../styles/commons/commons.css'
 
 import React, { useContext, useState } from 'react';
-import { Container, Id, Login_Button, Login_Container, Login_Title, PasswordInput } from '../styles/adminLoginCSS';
 import { observer } from 'mobx-react-lite';
-import { AdminContext } from '../stores/StoreContext';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import LoadingSpinner from './commons/loadingSpinner';
+import { AdminContext, LoginContext } from '../../stores/StoreContext';
+import LoadingSpinner from '../loadingSpinner/page';
+import { Container, Id, Login_Button, Login_Container, Login_Title, PasswordInput } from '../../styles/adminLoginCSS';
 
 const AdminLoginPage = observer(() => {
     const router = useRouter();
     const adminStore = useContext(AdminContext);
+    const loginStore = useContext(LoginContext);
+    
     
     // 비밀번호 가시성 여부
     const [showPassword, setShowPassword] = useState(false);
@@ -50,11 +52,12 @@ const AdminLoginPage = observer(() => {
                     admin_id: adminStore.admin_id,
                     pwd: adminStore.pwd
                 });
+               
                 if (response.data.success) {
-                    adminStore.setToken(response.data.token)
-                    adminStore.setName(response.data.userDetails.name)
-                    console.log("처음",adminStore.token);
-                    router.push('/dashboard/dashboardPage')
+                    adminStore.setAdminId("");
+                    adminStore.setPwd("");
+                    loginStore.setToken(response.data.token, response.data.userDetails.admin_id,response.data.userDetails.name,response.data.userDetails.role)
+                    router.push('/main/')
                     return <LoadingSpinner />;
                 } else {
                     alert("존재하지 않는 관리자입니다. \r\n아이디나 비밀번호를 다시 입력해주세요.")
