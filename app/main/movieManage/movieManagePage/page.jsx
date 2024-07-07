@@ -3,18 +3,18 @@
 "use client";
 
 import { observer } from "mobx-react-lite";
-import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../styles/commons/commonsCSS";
 import { useContext, useEffect, useState } from "react";
-import { AdminContext, MovieContext } from "../../stores/StoreContext";
-import axios from "axios";
 import { useRouter } from "next/navigation";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, ReleaseYear, SynchroBtn } from "../../styles/movieManageCSS";
-import { SearchField } from "../../styles/userManageCSS";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import { SearchField } from "../../../../styles/userManageCSS";
+import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade18, GradeAll, InfoDelete, InfoEdit, InformationMatch, MovieAddBtn, MovieContainer, MovieContainer_Content, MovieGrade, MovieInfo, MovieInfo_Title, MovieName, MovieNum, ReleaseYear, SynchroBtn } from "../../../../styles/movieManageCSS";
+import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../../../styles/commons/commonsCSS";
+import axios from "axios";
+import { LoginContext, MovieContext } from "../../../../stores/StoreContext";
 
 const MovieManagePage = observer(() => {
-    const adminStore = useContext(AdminContext)
     const movieStore = useContext(MovieContext)
+    const loginStore = useContext(LoginContext)
     const router = useRouter();
 
     // 영화 리스트
@@ -49,6 +49,7 @@ const MovieManagePage = observer(() => {
         } finally {
         }
     }
+    
     // 영화 검색 - 검색어
     const onChangeKeyword = (e) => {
         movieStore.setKeyword(e.target.value)
@@ -71,14 +72,23 @@ const MovieManagePage = observer(() => {
         movieStore.setMovieUpdate('thema', movie.thema);
         movieStore.setMovieUpdate('movie', movie.movie);
         movieStore.setMovieUpdate('subtitle', movie.subtitle);
-
         movieStore.setQuery(movie.tmdb_title)
-        router.push('/movieManage/movieEditPage')
+
+        /* localStorage.setItem("movie_idx", movie.movie_idx)
+        localStorage.setItem("movie_id", movie.movie_id)
+        localStorage.setItem("tmdb_title", movie.tmdb_title)
+        localStorage.setItem("korea_title", movie.korea_title)
+        localStorage.setItem("english_title", movie.english_title)
+        localStorage.setItem("thema", movie.thema)
+        localStorage.setItem("movie", movie.movie)
+        localStorage.setItem("subtitle", movie.subtitle) */
+
+        router.push('/main/movieManage/movieEditPage')
     }
 
     // 영화 추가 버튼 클릭 시
     const onClickAddMovie = () => {
-        router.push('/movieManage/movieAddPage')
+        router.push('/main/movieManage/movieAddPage')
     }
 
     // 영화 삭제하는 function
@@ -93,7 +103,7 @@ const MovieManagePage = observer(() => {
                         movie_idx: movieStore.movieUpdate.movie_idx
                     },
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
                 console.log(response.data)

@@ -1,18 +1,17 @@
 "use client";
 
 import { observer } from "mobx-react-lite";
-import { Answer_Container, Answer_Content, Answer_Date, Answer_Write, Buttons, CompleteBtn, Info, Info2, Info_Container, Info_Title, QuestionInfo_Container, Question_Container, Question_Content, Question_Date, Question_Title, SaveBtn, Subtitle } from "../../styles/QnADetailCSS";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { ColorGray, Loading } from "../../styles/commons/commonsCSS";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import { AdminContext, QnaContext } from "../../stores/StoreContext";
-import LoadingSpinner from "../commons/loadingSpinner";
-import Layout from "../commonLayout";
+import { LoginContext, QnaContext } from "../../../../stores/StoreContext";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Answer_Container, Answer_Content, Answer_Date, CompleteBtn, Info, Info2, Info_Container, Info_Title, QuestionInfo_Container, Question_Container, Question_Content, Question_Date, Question_Title, SaveBtn, Subtitle } from "../../../../styles/QnADetailCSS";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import { ColorGray } from "../../../../styles/commons/commonsCSS";
 
 const QnADetailPage = observer(() => {
-    const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext);
     const qnaStore = useContext(QnaContext);
     const router = useRouter();
 
@@ -36,7 +35,7 @@ const QnADetailPage = observer(() => {
 
     // 확인 버튼 클릭 시 리스트로 돌아가기
     const onClickConfirm = () => {
-        router.push('/QnAManage/QnAManagePage')
+        router.push('/main/QnAManage/QnAManagePage')
     }
 
     // Q&A 상세 function
@@ -50,7 +49,7 @@ const QnADetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 }
             );
@@ -134,7 +133,7 @@ const QnADetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 }
             );
@@ -159,25 +158,23 @@ const QnADetailPage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>1:1 문의 상세</AdminPageTitle>
-                <Question_Container>
-                    <Info_Container>
-                        <Info_Title>아이디</Info_Title>
-                        <Info>{qnaDetail.quest_profile.user_id}</Info>
-                    </Info_Container>
-                    <Info_Container>
-                        <Info_Title>프로필 이름</Info_Title>
-                        <Info>{qnaDetail.quest_profile.name}</Info>
-                    </Info_Container>
-                    <QuestionInfo_Container>
-                        <Question_Title>제목 <ColorGray>&#160;{qnaDetail.question.title}</ColorGray></Question_Title>
-                        <Question_Date>{qnaDetail.question.regdate.slice(0, 10)}</Question_Date>
-                    </QuestionInfo_Container>
-                    <Question_Content>{qnaDetail.question.content}</Question_Content>
-                </Question_Container>
-                {qna_answer()}
-            </Layout>
+            <AdminPageTitle>1:1 문의 상세</AdminPageTitle>
+            <Question_Container>
+                <Info_Container>
+                    <Info_Title>아이디</Info_Title>
+                    <Info>{qnaDetail.quest_profile.user_id}</Info>
+                </Info_Container>
+                <Info_Container>
+                    <Info_Title>프로필 이름</Info_Title>
+                    <Info>{qnaDetail.quest_profile.name}</Info>
+                </Info_Container>
+                <QuestionInfo_Container>
+                    <Question_Title>제목 <ColorGray>&#160;{qnaDetail.question.title}</ColorGray></Question_Title>
+                    <Question_Date>{qnaDetail.question.regdate.slice(0, 10)}</Question_Date>
+                </QuestionInfo_Container>
+                <Question_Content>{qnaDetail.question.content}</Question_Content>
+            </Question_Container>
+            {qna_answer()}
         </>
     );
 });

@@ -56,7 +56,7 @@ export const MemoBox = styled.textarea`
     font: 14px "Pretendard-Regular";
     box-sizing: border-box;
     border-radius: 5px;
-    padding: 5px;
+    padding: 10px;
 `
 
 export const AddBtn = styled.button`

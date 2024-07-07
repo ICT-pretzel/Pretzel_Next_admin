@@ -1,18 +1,18 @@
 "use client";
 
-import axios from "axios";
-import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { AddAdminBtn, AdminContainer, AdminContainer_inner, AdminInfo, AdminInfo_Title, AdminNum, Admin_ID, Admin_Reg, Admin_Right, Admin_State, ButtonsContainer } from "../../styles/adminManageCSS";
-import { ColorOrange } from "../../styles/commons/commonsCSS";
-import { AdminContext } from "../../stores/StoreContext";
-import LoadingSpinner from "../commons/loadingSpinner";
-import Layout from "../commonLayout";
+import { useContext, useEffect, useState } from "react";
+import { AdminContext, LoginContext } from "../../../../stores/StoreContext";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import { AddAdminBtn, AdminContainer, AdminContainer_inner, AdminInfo, AdminInfo_Title, AdminNum, Admin_ID, Admin_Reg, Admin_Right, Admin_State, ButtonsContainer } from "../../../../styles/adminManageCSS";
+import { ColorOrange } from "../../../../styles/commons/commonsCSS";
 
 const AdminManagePage = observer(() => {
     const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
     const router = useRouter();
 
     // 관리자 리스트
@@ -38,7 +38,7 @@ const AdminManagePage = observer(() => {
                     cPage: 1
                 },
                 headers: {
-                    Authorization: `Bearer ${adminStore.token}`
+                    Authorization: `Bearer ${loginStore.token}`
                 }
             });
             if (response.data.admin_list.length > 0) {
@@ -65,41 +65,45 @@ const AdminManagePage = observer(() => {
         adminStore.setAdminInfo("note", admin.note);
         adminStore.setAdminInfo("status", admin.status);
 
-        router.push('/adminManage/adminDetailPage')
+        localStorage.setItem("addadmin_id", admin.admin_id)
+        localStorage.setItem("name", admin.name)
+        localStorage.setItem("role", admin.role)
+        localStorage.setItem("note", admin.note)
+        localStorage.setItem("status", admin.status)
+
+        router.push('/main/adminManage/adminDetailPage')
     }
 
     // 관리자 추가 버튼 클릭 시
     const onClickAdminAdd = () => {
-        router.push('/adminManage/adminAddPage')
+        router.push('/main/adminManage/adminAddPage')
     }
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>관리자 관리</AdminPageTitle>
-                <ButtonsContainer>
-                    <AdminNum>총 관리자 <ColorOrange>{adminList.count}</ColorOrange></AdminNum>
-                    <AddAdminBtn onClick={onClickAdminAdd}>관리자 추가</AddAdminBtn>
-                </ButtonsContainer>
-                <AdminContainer>
-                    <AdminContainer_inner>
-                        <AdminInfo_Title>
-                            <Admin_ID>관리자 아이디</Admin_ID>
-                            <Admin_Right>권한</Admin_Right>
-                            <Admin_Reg>등록일</Admin_Reg>
-                            <Admin_State>상태</Admin_State>
-                        </AdminInfo_Title>
-                        {adminList.admin_list.map((k) => (
-                            <AdminInfo key={k.admin_idx} onClick={() => onClickAdminOne(k)}>
-                                <Admin_ID>{k.admin_id}</Admin_ID>
-                                <Admin_Right>{k.role === '0' ? '일반' : <ColorOrange>슈퍼</ColorOrange>}</Admin_Right>
-                                <Admin_Reg>{k.regdate.slice(0, 10)}</Admin_Reg>
-                                <Admin_State>{k.status === '0' ? '활성화' : '정지'}</Admin_State>
-                            </AdminInfo>
-                        ))}
-                    </AdminContainer_inner>
-                </AdminContainer>
-            </Layout>
+            <AdminPageTitle>관리자 관리</AdminPageTitle>
+            <ButtonsContainer>
+                <AdminNum>총 관리자 <ColorOrange>{adminList.count}</ColorOrange></AdminNum>
+                <AddAdminBtn onClick={onClickAdminAdd}>관리자 추가</AddAdminBtn>
+            </ButtonsContainer>
+            <AdminContainer>
+                <AdminContainer_inner>
+                    <AdminInfo_Title>
+                        <Admin_ID>관리자 아이디</Admin_ID>
+                        <Admin_Right>권한</Admin_Right>
+                        <Admin_Reg>등록일</Admin_Reg>
+                        <Admin_State>상태</Admin_State>
+                    </AdminInfo_Title>
+                    {adminList.admin_list.map((k) => (
+                        <AdminInfo key={k.admin_idx} onClick={() => onClickAdminOne(k)}>
+                            <Admin_ID>{k.admin_id}</Admin_ID>
+                            <Admin_Right>{k.role === '0' ? '일반' : <ColorOrange>슈퍼</ColorOrange>}</Admin_Right>
+                            <Admin_Reg>{k.regdate.slice(0, 10)}</Admin_Reg>
+                            <Admin_State>{k.status === '0' ? '정지' : '활성화'}</Admin_State>
+                        </AdminInfo>
+                    ))}
+                </AdminContainer_inner>
+            </AdminContainer>
         </>
     )
 })

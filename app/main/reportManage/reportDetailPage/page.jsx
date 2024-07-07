@@ -2,19 +2,18 @@
 
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
-import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../styles/reportDetailCSS";
-import Layout from "../commonLayout";
-import { AdminContext, ReportContext } from "../../stores/StoreContext";
-import LoadingSpinner from "../commons/loadingSpinner";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 import { observer } from "mobx-react-lite";
+import { useContext, useEffect, useState } from "react";
+import { LoginContext, ReportContext } from "../../../../stores/StoreContext";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../../../styles/reportDetailCSS";
+import { ColorGray, ColorOrange } from "../../../../styles/commons/commonsCSS";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 
 const ReportDetailPage = observer(() => {
-    const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
     const reportStore = useContext(ReportContext);
     const router = useRouter();
 
@@ -26,6 +25,7 @@ const ReportDetailPage = observer(() => {
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
+        reportStore.setReportIdx(localStorage.getItem("report_idx"))
         report_detail();
     }, []);
 
@@ -42,7 +42,7 @@ const ReportDetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 }
             );
@@ -107,7 +107,7 @@ const ReportDetailPage = observer(() => {
     async function review_delete() {
         if (confirm("신고당한 리뷰를 삭제하시겠습니까?")) {
             setReportDetail.report.status = '0';
-            
+
             // controller 수정되면 report_ok axios로 가기
             if (reportDetail.report.status = '0') {
                 alert("신고당한 리뷰의 삭제 처리가 완료되었습니다.")
@@ -123,7 +123,7 @@ const ReportDetailPage = observer(() => {
 
     // 확인 버튼 클릭 시 리스트로 돌아가기
     const onClickConfirm = () => {
-        router.push('/reportManage/reportManagePage')
+        router.push('/main/reportManage/reportManagePage')
     }
 
     // 로딩중일 때
@@ -133,26 +133,24 @@ const ReportDetailPage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>신고 상세</AdminPageTitle>
+            <AdminPageTitle>신고 상세</AdminPageTitle>
 
-                <ReportDetail_Container>
-                    <ReportedPerson_Container>
-                        <SubTitle>피신고자</SubTitle>
-                        <Content>아이디 &#160;<ColorGray>{reportDetail.user_id}</ColorGray></Content>
-                        <Content>리뷰내용</Content>
-                        <ReviewBox>{reportDetail.content}</ReviewBox>
-                    </ReportedPerson_Container>
+            <ReportDetail_Container>
+                <ReportedPerson_Container>
+                    <SubTitle>피신고자</SubTitle>
+                    <Content>아이디 &#160;<ColorGray>{reportDetail.user_id}</ColorGray></Content>
+                    <Content>리뷰내용</Content>
+                    <ReviewBox>{reportDetail.content}</ReviewBox>
+                </ReportedPerson_Container>
 
-                    <Reporter_Container>
-                        <SubTitle>신고자</SubTitle>
-                        <Content>닉네임 &#160;<ColorGray>{reportDetail.profile_name}</ColorGray></Content>
-                        <Content>신고유형 &#160;<ColorOrange>{reportDetail.report.type}</ColorOrange></Content>
-                    </Reporter_Container>
+                <Reporter_Container>
+                    <SubTitle>신고자</SubTitle>
+                    <Content>닉네임 &#160;<ColorGray>{reportDetail.profile_name}</ColorGray></Content>
+                    <Content>신고유형 &#160;<ColorOrange>{reportDetail.report.type}</ColorOrange></Content>
+                </Reporter_Container>
 
-                    {report_answer()}
-                </ReportDetail_Container>
-            </Layout>
+                {report_answer()}
+            </ReportDetail_Container>
         </>
     )
 })

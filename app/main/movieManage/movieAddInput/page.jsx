@@ -2,17 +2,17 @@
 
 "use client";
 
-import { useContext } from "react";
-import { AddBtn, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, MovieUpload, SelectGenre } from "../../styles/movieAddCSS";
-
 import { observer } from "mobx-react-lite";
-import { AdminContext, MovieContext } from "../../stores/StoreContext";
+import { useContext } from "react";
+import { LoginContext, MovieContext } from "../../../../stores/StoreContext";
+import { AddBtn, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, MovieUpload, SelectGenre } from "../../../../styles/movieAddCSS";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const MovieAddInput = observer(() => {
-
-    const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
     const movieStore = useContext(MovieContext)
+    const router = useRouter();
 
     /* 영화 정보 */
     const onChangeInfo = (e) => {
@@ -41,10 +41,16 @@ const MovieAddInput = observer(() => {
                     thema: movieStore.movieInfo.thema
                 },
                 headers: {
-                    Authorization: `Bearer ${adminStore.token}`,
+                    Authorization: `Bearer ${loginStore.token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
+
+            if(response.data){
+                alert("영화 추가가 완료되었습니다.")
+                router.push("/main/movieManage/movieManagePage")
+                movieStore.keyword("")
+            }
         } catch (error) {
             console.error('영화 추가 실패 : ', error)
         }

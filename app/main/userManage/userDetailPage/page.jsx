@@ -3,31 +3,32 @@
 "use client";
 
 import { observer } from "mobx-react-lite";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { ColorGray, ColorOrange } from "../../styles/commons/commonsCSS";
-import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../../styles/userDetailCSS";
 import { useContext, useEffect, useState } from "react";
-import { AdminContext, UserContext } from "../../stores/StoreContext";
 import axios from "axios";
-import LoadingSpinner from "../commons/loadingSpinner";
+import { AccountSuspension_Btn, ButtonsContainer, HorizontalLine, InitializePwd_Btn, ProfileAllContainer, ProfileContainer, ProfileTitle, Profile_Birth, Profile_Gender, Profile_Img, Profile_Info, Profile_Nickname, SuspensionRecovery_Btn, UserInfo, UserInfoAllContainer, UserInfoContainer, UserInfoTitle } from "../../../../styles/userDetailCSS";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { useRouter } from "next/navigation";
+import { ColorGray, ColorOrange } from "../../../../styles/commons/commonsCSS";
+import { LoginContext, UserContext } from "../../../../stores/StoreContext";
 
 const UserDetailPage = observer(() => {
-    const adminStore = useContext(AdminContext)
     const userStore = useContext(UserContext)
+    const loginStore = useContext(LoginContext)
     const router = useRouter();
 
     // 회원 상세
     const [userDetail, setUserDetail] = useState({});
 
     // 회원의 프로필들
-    const [userProfile, setUserProfile] = useState({});
+    const [userProfile, setUserProfile] = useState([]);
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
+        userStore.setUserId(localStorage.getItem("user_id"))
         user_detail()
     }, []);
 
@@ -36,7 +37,8 @@ const UserDetailPage = observer(() => {
     // 회원 리스트 보여주는 function
     async function user_detail() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-
+        console.log("test", loginStore.token);
+        console.log("test2", userStore.user_id);
         try {
             const response = await axios.post(API_URL + "user_detail",
                 {
@@ -44,7 +46,7 @@ const UserDetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
             const response2 = await axios.post(API_URL + "profile_list",
@@ -53,11 +55,15 @@ const UserDetailPage = observer(() => {
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
-            if (response.data && response2.data) {
+
+            if (response.data) {
                 setUserDetail(response.data);
+            }
+
+            if (response2.data) {
                 setUserProfile(response2.data);
             }
         } catch (error) {
@@ -98,7 +104,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${adminStore.token}`
+                            Authorization: `Bearer ${loginStore.token}`
                         }
                     }
                 );
@@ -127,7 +133,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${adminStore.token}`
+                            Authorization: `Bearer ${loginStore.token}`
                         }
                     }
                 );
@@ -156,7 +162,7 @@ const UserDetailPage = observer(() => {
                     },
                     {
                         headers: {
-                            Authorization: `Bearer ${adminStore.token}`
+                            Authorization: `Bearer ${loginStore.token}`
                         }
                     }
                 );

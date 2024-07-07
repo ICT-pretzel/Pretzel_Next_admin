@@ -2,15 +2,13 @@
 
 "use client";
 
-import { useContext, useState } from "react";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { CheckIcon, Keyword, MovieContainer, MoviePoster, MovieTitle, NoSearchResult, OneMovieContainer, ReleaseYear, SearchBtn, SearchContainer, SearchContainer_inner, SearchTitle } from "../../styles/movieAddCSS";
-
 import { observer } from "mobx-react-lite";
-import { MovieContext } from "../../stores/StoreContext";
-import MovieAddInput from "../movieAddInput/page";
+import { useContext, useState } from "react";
+import { MovieContext } from "../../../../stores/StoreContext";
 import axios from "axios";
-import Layout from "../commonLayout";
+import { CheckIcon, Keyword, MovieContainer, MoviePoster, MovieTitle, NoSearchResult, OneMovieContainer, ReleaseYear, SearchBtn, SearchContainer, SearchContainer_inner, SearchTitle } from "../../../../styles/movieAddCSS";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import MovieAddInput from "../movieAddInput/page";
 
 const MovieAddPage = observer(() => {
     const movieStore = useContext(MovieContext)
@@ -52,6 +50,7 @@ const MovieAddPage = observer(() => {
             } else {
                 setSearchList([])
             }
+            movieStore.keyword("")
         } catch (error) {
             console.error('검색 실패 : ', error)
             movieStore.setQuery("");
@@ -83,35 +82,33 @@ const MovieAddPage = observer(() => {
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>콘텐츠 추가</AdminPageTitle>
-                <SearchContainer>
-                    <SearchContainer_inner>
-                        <SearchTitle>제목</SearchTitle>
-                        <Keyword type="text" name="query" onChange={onChangeQuery} placeholder="영화 제목을 입력해 주세요." />
-                    </SearchContainer_inner>
-                    <SearchContainer_inner>
-                        <SearchTitle>개봉년도</SearchTitle>
-                        <Keyword
-                            type="text"
-                            name="year"
-                            onChange={onChangeYear}
-                            maxLength="4"
-                            // \d : 숫자(0-9)를 의미 | {4} : 4번 반복됨을 의미 */
-                            pattern="\d{4}"
-                            title="4자리 숫자를 입력해 주세요."
-                            placeholder="개봉년도를 입력해 주세요. (YYYY)" />
-                    </SearchContainer_inner>
-                </SearchContainer>
-                <SearchBtn onClick={search}>검색</SearchBtn>
+            <AdminPageTitle>콘텐츠 추가</AdminPageTitle>
+            <SearchContainer>
+                <SearchContainer_inner>
+                    <SearchTitle>제목</SearchTitle>
+                    <Keyword type="text" name="query" onChange={onChangeQuery} placeholder="영화 제목을 입력해 주세요." />
+                </SearchContainer_inner>
+                <SearchContainer_inner>
+                    <SearchTitle>개봉년도</SearchTitle>
+                    <Keyword
+                        type="text"
+                        name="year"
+                        onChange={onChangeYear}
+                        maxLength="4"
+                        // \d : 숫자(0-9)를 의미 | {4} : 4번 반복됨을 의미 */
+                        pattern="\d{4}"
+                        title="4자리 숫자를 입력해 주세요."
+                        placeholder="개봉년도를 입력해 주세요. (YYYY)" />
+                </SearchContainer_inner>
+            </SearchContainer>
+            <SearchBtn onClick={search}>검색</SearchBtn>
 
-                <MovieContainer>
-                    {search_result()}
-                </MovieContainer>
+            <MovieContainer>
+                {search_result()}
+            </MovieContainer>
 
-                {/* 영화 정보 입력 */}
-                <MovieAddInput />
-            </Layout>
+            {/* 영화 정보 입력 */}
+            <MovieAddInput />
         </>
     )
 })

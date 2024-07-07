@@ -1,7 +1,7 @@
 // 관리자 상세 페이지 - 처리한 신고 내역
 "use client";
 
-import { ArrowIcon, List_Container, Process_List } from "../../styles/adminDetailCSS";
+import { ArrowIcon, List_Container, Process_List } from "../../../../styles/adminDetailCSS";
 
 const AdminDetailReport = () => {
 

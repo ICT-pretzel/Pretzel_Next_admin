@@ -2,17 +2,15 @@
 
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import { AdminPageTitle } from "../../styles/adminCommonCSS";
-import { ColorOrange } from "../../styles/commons/commonsCSS";
-import { AdministratorName, Processing, ReportContainer, ReportContainer_inner, ReportDate, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../styles/reportManageCSS";
-import Layout from "../commonLayout";
-import { ReportContext } from "../../stores/StoreContext";
-import { observer } from "mobx-react-lite";
 import axios from "axios";
-import LoadingSpinner from "../commons/loadingSpinner";
+import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
-import { PaginationNext, PaginationNum, PaginationPrev, Pagings } from "../../styles/commons/pagingCSS";
+import { useContext, useEffect, useState } from "react";
+import LoadingSpinner from "../../../loadingSpinner/page";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import { AdministratorName, Processing, ReportContainer, ReportContainer_inner, ReportDate, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../../../styles/reportManageCSS";
+import { ColorOrange } from "../../../../styles/commons/commonsCSS";
+import { ReportContext } from "../../../../stores/StoreContext";
 
 const ReportManagePage = observer(() => {
     const reportStore = useContext(ReportContext)
@@ -60,41 +58,34 @@ const ReportManagePage = observer(() => {
     // 신고 상세 들어가기
     const onClickReport = (report_idx) => {
         reportStore.setReportIdx(report_idx)
-        router.push('/reportManage/reportDetailPage')
+        localStorage.setItem("report_idx", report_idx)
+        router.push('/main/reportManage/reportDetailPage')
     }
 
     return (
         <>
-            <Layout>
-                <AdminPageTitle>신고 관리</AdminPageTitle>
-                <UnprocessedReportNum>미처리 상태의 신고 수 <ColorOrange>{reportList.count}</ColorOrange></UnprocessedReportNum>
-                <ReportContainer>
-                    <ReportContainer_inner>
-                        <Report_Title>
-                            <ReportType>신고 유형</ReportType>
-                            <ReviewContent>리뷰 내용</ReviewContent>
-                            <ReportDate>신고 날짜</ReportDate>
-                            <Processing>처리 상태</Processing>
-                            <AdministratorName>처리한 관리자</AdministratorName>
-                        </Report_Title>
-                        {reportList.report_list.map((k) => (
-                            <Report_Content key={k.report_idx} onClick={() => onClickReport(k.report_idx)}>
-                                <ReportType>{k.type}</ReportType>
-                                <ReviewContent>{k.content}</ReviewContent>
-                                <ReportDate>{k.regdate.slice(0, 10)}</ReportDate>
-                                <Processing>{k.status === '2' ? <ColorOrange>처리 전</ColorOrange> : '처리 완료'}</Processing>
-                                <AdministratorName>{k.admin_name}</AdministratorName>
-                            </Report_Content>
-                        ))}
-                    </ ReportContainer_inner>
-                </ ReportContainer>
-
-                <Pagings>
-                    <PaginationPrev>이전</PaginationPrev>
-                    <PaginationNum>1 &#160;&#160;2 &#160;&#160;3 &#160;&#160;4 &#160;&#160;5</PaginationNum>
-                    <PaginationNext>다음</PaginationNext>
-                </Pagings>
-            </Layout>
+            <AdminPageTitle>신고 관리</AdminPageTitle>
+            <UnprocessedReportNum>미처리 상태의 신고 수 <ColorOrange>{reportList.count}</ColorOrange></UnprocessedReportNum>
+            <ReportContainer>
+                <ReportContainer_inner>
+                    <Report_Title>
+                        <ReportType>신고 유형</ReportType>
+                        <ReviewContent>리뷰 내용</ReviewContent>
+                        <ReportDate>신고 날짜</ReportDate>
+                        <Processing>처리 상태</Processing>
+                        <AdministratorName>처리한 관리자</AdministratorName>
+                    </Report_Title>
+                    {reportList.report_list.map((k) => (
+                        <Report_Content key={k.report_idx} onClick={() => onClickReport(k.report_idx)}>
+                            <ReportType>{k.type}</ReportType>
+                            <ReviewContent>{k.content}</ReviewContent>
+                            <ReportDate>{k.regdate.slice(0, 10)}</ReportDate>
+                            <Processing>{k.status === '2' ? <ColorOrange>처리 전</ColorOrange> : '처리 완료'}</Processing>
+                            <AdministratorName>{k.admin_name}</AdministratorName>
+                        </Report_Content>
+                    ))}
+                </ ReportContainer_inner>
+            </ ReportContainer>
         </>
     )
 })

@@ -2,17 +2,17 @@
 
 "use client";
 
-import { useContext } from "react";
-import { EditBtn, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, MovieUpload, OriginalContent, SelectGenre } from "../../styles/movieAddCSS";
-
 import { observer } from "mobx-react-lite";
-import { AdminContext, MovieContext } from "../../stores/StoreContext";
+import { useContext, useState } from "react";
+import { LoginContext, MovieContext } from "../../../../stores/StoreContext";
 import axios from "axios";
+import { EditBtn, Genre, InputContainer, InputContainer_inner, InputContent, InputTitle, MovieUpload, SelectGenre } from "../../../../styles/movieAddCSS";
+import LoadingSpinner from "../../../loadingSpinner/page";
 
 const MovieEditInput = observer(() => {
-
-    const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
     const movieStore = useContext(MovieContext)
+    const [isLoading, setIsLoading] = useState(false);
 
     /* 영화 수정 정보 */
     const onChangeInfo = (e) => {
@@ -27,6 +27,11 @@ const MovieEditInput = observer(() => {
     const API_URL = "/movie/"
 
     async function update_movie() {
+        setIsLoading(true);
+        console.log("sdfasdass");
+        console.log(movieStore.movieUpdate.movie_idx);
+        console.log(movieStore.movieUpdate.movie_id);
+        console.log(loginStore.token);
         try {
             // FormData 객체 생성 및 파일 추가
             const formData = new FormData();
@@ -42,15 +47,20 @@ const MovieEditInput = observer(() => {
                     movie_idx: movieStore.movieUpdate.movie_idx
                     },
                 headers: {
-                    Authorization: `Bearer ${adminStore.token}`,
+                    Authorization: `Bearer ${loginStore.token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
         } catch (error) {
-            console.error('영화 추가 실패 : ', error)
+            console.error('영화 수정 실패 : ', error)
+        }finally{
+            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
     }
-
+    // 로딩중일 때
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
     return (
         <>
             <InputContainer>
@@ -74,7 +84,7 @@ const MovieEditInput = observer(() => {
                 </InputContainer_inner>
                 <InputContainer_inner>
                     <InputTitle>장르 선택</InputTitle>
-                    <SelectGenre name="thema" onChange={onChangeInfo} defaultValue={movieStore.movieUpdate.thema}>
+                    <SelectGenre name="thema" onChange={onChangeInfo} value={movieStore.movieUpdate.thema}>
                         <Genre value="공포">공포</Genre>
                         <Genre value="범죄/스릴러">범죄/스릴러</Genre>
                         <Genre value="액션">액션</Genre>

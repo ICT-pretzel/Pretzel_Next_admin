@@ -7,11 +7,12 @@ import { BarChart, LineChart, PieChart, pieArcLabelClasses } from "@mui/x-charts
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
-import { AdminContext } from "../../stores/StoreContext";
+import { AdminContext, LoginContext } from "../../stores/StoreContext";
 import LoadingSpinner from "../loadingSpinner/page";
 
 const Main = observer(() => {
     const adminStore = useContext(AdminContext)
+    const loginStore = useContext(LoginContext)
 
     // 구독별 유저 수
     const [subCount, setSubCount] = useState([]);
@@ -44,25 +45,25 @@ const Main = observer(() => {
             const response = await axios.get(API_URL + "sub_count",
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
             const response2 = await axios.get(API_URL + "month_count",
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
             const response3 = await axios.get(API_URL + "thema_count",
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
             const response4 = await axios.get(API_URL + "top_view",
                 {
                     headers: {
-                        Authorization: `Bearer ${adminStore.token}`
+                        Authorization: `Bearer ${loginStore.token}`
                     }
                 });
             if (response.data && response2.data && response3.data && response4.data) {

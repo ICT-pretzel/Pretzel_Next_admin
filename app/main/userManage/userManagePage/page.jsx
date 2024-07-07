@@ -7,14 +7,15 @@ import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import LoadingSpinner from "../../../loadingSpinner/page";
-import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { Last_Login, SearchField, SuspensionStatus, UserContainer, UserContainerContent, UserEmail, UserID, UserInfo, UserInfoTitle, UserName, UserNum } from "../../../../styles/userManageCSS";
-import { AdminContext, UserContext } from "../../../../stores/StoreContext";
+import { AdminContext, LoginContext, UserContext } from "../../../../stores/StoreContext";
 import { ColorOrange } from "../../../../styles/commons/commonsCSS";
+import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 
 const UserManagePage = observer(() => {
     const adminStore = useContext(AdminContext)
     const userStore = useContext(UserContext)
+    const loginStore = useContext(LoginContext)
     const router = useRouter();
 
     // 회원 리스트
@@ -53,7 +54,7 @@ const UserManagePage = observer(() => {
                     keyword: userStore.keyword
                 },
                 headers: {
-                    Authorization: `Bearer ${adminStore.token}`
+                    Authorization: `Bearer ${loginStore.token}`
                 }
             });
             console.log(response.data)
@@ -75,7 +76,8 @@ const UserManagePage = observer(() => {
     // 유저 상세 들어가기
     const onClickUser = (user_id) => {
         userStore.setUserId(user_id)
-        router.push('/userManage/userDetailPage')
+        localStorage.setItem("user_id", user_id)
+        router.push('/main/userManage/userDetailPage')
     }
 
     return (
