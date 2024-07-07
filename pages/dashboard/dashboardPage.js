@@ -102,7 +102,7 @@ const DashboardPage = observer(() => {
                 color.push("#FFF29E");
             }
         });
-        return color; // 수정된 부분: test1 배열을 반환하도록 추가
+        return color;
     }
 
     return (
