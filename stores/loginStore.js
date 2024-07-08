@@ -5,6 +5,7 @@ class LoginStore {
     admin_id= '';
     name='';
     role='0';
+    
     // 토큰
     token = '';
     constructor() {

@@ -124,3 +124,35 @@ export const ReportDetail_Container = styled.div`
     align-items: center;
     justify-content: center;
 `
+
+export const PendingButton = styled.button`
+    border: none;
+    border-radius: 50px;
+    background-color: #3D3D3D;
+    font: 17px "Pretendard-Regular";
+    color: #ffffff;
+    height: 50px;
+    width: 190px;
+    margin-right: 15px;
+
+    &:hover {
+        color: #868686;
+        background-color: #232323;
+    }
+`
+
+export const ReviewDeleteButton = styled.button`
+    border: none;
+    border-radius: 50px;
+    background-color: #3D3D3D;
+    font: 17px "Pretendard-Regular";
+    color: #ffffff;
+    height: 50px;
+    width: 220px;
+    margin-right: 15px;
+
+    &:hover {
+        color: #868686;
+        background-color: #232323;
+    }
+`

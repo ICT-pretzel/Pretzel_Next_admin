@@ -74,14 +74,14 @@ const MovieManagePage = observer(() => {
         movieStore.setMovieUpdate('subtitle', movie.subtitle);
         movieStore.setQuery(movie.tmdb_title)
 
-        /* localStorage.setItem("movie_idx", movie.movie_idx)
+        localStorage.setItem("movie_idx", movie.movie_idx)
         localStorage.setItem("movie_id", movie.movie_id)
         localStorage.setItem("tmdb_title", movie.tmdb_title)
         localStorage.setItem("korea_title", movie.korea_title)
         localStorage.setItem("english_title", movie.english_title)
         localStorage.setItem("thema", movie.thema)
         localStorage.setItem("movie", movie.movie)
-        localStorage.setItem("subtitle", movie.subtitle) */
+        localStorage.setItem("subtitle", movie.subtitle)
 
         router.push('/main/movieManage/movieEditPage')
     }

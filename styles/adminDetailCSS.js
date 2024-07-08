@@ -75,10 +75,7 @@ export const Process_List = styled.div`
 export const List_Container = styled.div`
     background-color: #252525;
     border-radius: 5px;
-    max-width: 1000px;
-    width: 100%;
     height: 60px;
-    margin: 10px auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -90,4 +87,98 @@ export const ArrowIcon = styled.img`
     width: 24px;
     height: 24px;
     cursor: pointer;
+`
+export const All_Container = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    margin: 10px auto;
+`
+
+export const Content_Container = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    margin-top: 5px;
+    display: ${({ isContentVisible }) => (isContentVisible ? 'block' : 'none')};
+`
+
+export const ContentTitle = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    height: 40px;
+    background-color: #343434;
+    border-bottom: 1px solid #343434;
+    font: 600 15px "Pretendard-Regular";
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+`
+
+export const Content = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    height: 40px;
+    background-color: #252525;
+    border-bottom: 1px solid #343434;
+    font: 15px "Pretendard-Regular";
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover {
+        background-color: #141414;
+        color: #868686;
+        cursor: pointer;
+    }
+`
+
+export const ReportIdx = styled.p`
+    width: 15%;
+`
+
+export const ReviewIdx = styled.p`
+    width: 15%;
+`
+
+export const AnsDate = styled.p`
+    width: 25%;
+`
+
+export const RegDate = styled.p`
+    width: 25%;
+`
+
+export const Status = styled.p`
+    width: 20%;
+`
+
+export const QuestionIdx = styled.p`
+    width: 15%;
+`
+
+export const Q_RegDate = styled.p`
+    width: 25%;
+`
+
+export const Q_AnsDate = styled.p`
+    width: 25%;
+`
+
+export const Q_Content = styled.p`
+    width: 35%;
+`
+
+export const NoneContent = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    height: 40px;
+    background-color: #252525;
+    font: 18px "Pretendard-Regular";
+    text-align: center;
+    color: #868686;
+    box-sizing: border-box;
+    padding-top: 8px;
 `

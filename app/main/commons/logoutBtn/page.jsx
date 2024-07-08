@@ -16,7 +16,7 @@ const LogoutBtn = observer(() => {
     const onClickLogout = () => {
         if (confirm("로그아웃을 하시겠습니까?")) {
             loginStore.setToken("","","","");
-            router.push('../adminLoginPage')
+            router.push('/adminLoginPage')
             return <LoadingSpinner />;
         } else {
             alert("로그아웃이 취소되었습니다.")

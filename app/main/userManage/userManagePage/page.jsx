@@ -13,7 +13,6 @@ import { ColorOrange } from "../../../../styles/commons/commonsCSS";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 
 const UserManagePage = observer(() => {
-    const adminStore = useContext(AdminContext)
     const userStore = useContext(UserContext)
     const loginStore = useContext(LoginContext)
     const router = useRouter();
@@ -60,6 +59,7 @@ const UserManagePage = observer(() => {
             console.log(response.data)
             if (response.data.user_list.length > 0) {
                 setUserList(response.data);
+                userStore.setKeyword("")
             }
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)

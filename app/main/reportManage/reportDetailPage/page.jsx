@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginContext, ReportContext } from "../../../../stores/StoreContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, SubTitle } from "../../../../styles/reportDetailCSS";
+import { Administrator_Container, Buttons, ConfirmBtn, Content, PendingBtn, PendingButton, ReportDetail_Container, ReportedPerson_Container, Reporter_Container, ReviewBox, ReviewDeleteBtn, ReviewDeleteButton, SubTitle } from "../../../../styles/reportDetailCSS";
 import { ColorGray, ColorOrange } from "../../../../styles/commons/commonsCSS";
 import LoadingSpinner from "../../../loadingSpinner/page";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
@@ -62,6 +62,24 @@ const ReportDetailPage = observer(() => {
         }
     }
 
+    // 관리자 역할에 따라 버튼 다르게 보여주기
+    function admin_role() {
+        if (loginStore.role === "1") {
+            return (
+                <>
+                    <Buttons>
+                        <PendingButton onClick={report_pending}>신고 보류로 변경</PendingButton>
+                        <ReviewDeleteButton onClick={review_delete}>해당 리뷰 삭제로 변경</ReviewDeleteButton>
+                    </Buttons>
+                </>
+            )
+        } else {
+            return (
+                <ConfirmBtn onClick={onClickConfirm}>확인</ConfirmBtn>
+            )
+        }
+    }
+
     // 신고 처리 여부에 따라서 관리자 부분 보여주기
     function report_answer() {
         if (reportDetail.report.status == '2') {
@@ -79,7 +97,7 @@ const ReportDetailPage = observer(() => {
                         <Content>관리자 아이디 &#160;<ColorGray>{reportDetail.report.admin_id}</ColorGray></Content>
                         <Content>처리 방식 &#160;<ColorGray>{reportDetail.report.status === '1' ? '신고 보류' : '해당 리뷰 삭제'}</ColorGray></Content>
                     </Administrator_Container>
-                    <ConfirmBtn onClick={onClickConfirm}>확인</ConfirmBtn>
+                    {admin_role()}
                 </>
             )
         }
@@ -88,15 +106,31 @@ const ReportDetailPage = observer(() => {
     // 신고 보류 버튼 클릭 시 신고의 상태 변경
     async function report_pending() {
         if (confirm("이 신고를 보류 상태로 처리하시겠습니까?")) {
-            setReportDetail.report.status = '1';
-
-            // controller 수정되면 report_ok axios로 가기
-            if (reportDetail.report.status = '1') {
-                alert("신고 보류 처리가 완료되었습니다.")
-                // 신고 상세정보 보여주는 function 재실행
-                report_detail();
-            } else {
+            reportStore.setStatus('1');
+            try {
+                const response = await axios.post(API_URL + "report_ok",
+                    {
+                        report_idx: reportStore.report_idx,
+                        status: reportStore.status
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${loginStore.token}`
+                        }
+                    }
+                );
+                if (response.data === 1) {
+                    alert("신고 보류 처리가 완료되었습니다.")
+                    // 신고 상세정보 보여주는 function 재실행
+                    report_detail();
+                } else {
+                    alert("신고의 보류 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+                }
+            } catch (error) {
+                console.error('신고 처리 실패 : ', error);
                 alert("신고의 보류 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+            } finally {
+                setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
             }
         } else {
             alert("보류 처리가 취소되었습니다.")
@@ -106,15 +140,31 @@ const ReportDetailPage = observer(() => {
     // 리뷰 삭제 버튼 클릭 시 신고의 상태 변경
     async function review_delete() {
         if (confirm("신고당한 리뷰를 삭제하시겠습니까?")) {
-            setReportDetail.report.status = '0';
-
-            // controller 수정되면 report_ok axios로 가기
-            if (reportDetail.report.status = '0') {
-                alert("신고당한 리뷰의 삭제 처리가 완료되었습니다.")
-                // 신고 상세정보 보여주는 function 재실행
-                report_detail();
-            } else {
-                alert("삭제 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+            console.log(reportStore.report_idx)
+            reportStore.setStatus('0');
+            try {
+                const response = await axios.post(API_URL + "report_ok",
+                    {
+                        "report_idx": reportStore.report_idx,
+                        "status": reportStore.status
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${loginStore.token}`
+                        }
+                    }
+                );
+                if (response.data === 1) {
+                    alert("신고당한 리뷰의 삭제 처리가 완료되었습니다.")
+                    // 신고 상세정보 보여주는 function 재실행
+                    report_detail();
+                } else {
+                    alert("삭제 처리가 완료되지 않았습니다. 다시 한 번 시도해 주세요.")
+                }
+            } catch (error) {
+                console.error('신고 처리 실패 : ', error);
+            } finally {
+                setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
             }
         } else {
             alert("리뷰 삭제가 취소되었습니다.")

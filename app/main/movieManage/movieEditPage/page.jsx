@@ -23,7 +23,7 @@ const MovieEditPage = observer(() => {
     }
     
     // 처음 렌더링 될 때 실행
-  /*   useEffect(() => {
+    useEffect(() => {
         movieStore.setMovieUpdate('movie_idx', localStorage.getItem("movie_idx"))
         movieStore.setMovieUpdate('movie_id', localStorage.getItem("movie_id"))
         movieStore.setMovieUpdate('tmdb_title', localStorage.getItem("tmdb_title"))
@@ -32,7 +32,7 @@ const MovieEditPage = observer(() => {
         movieStore.setMovieUpdate('thema', localStorage.getItem("thema"))
         movieStore.setMovieUpdate('movie', localStorage.getItem("movie"))
         movieStore.setMovieUpdate('subtitle', localStorage.getItem("subtitle"))
-    }, []); */
+    }, []);
 
     // 검색한 리스트와 검색 여부 상태
     const [searchList, setSearchList] = useState([]);
@@ -62,6 +62,7 @@ const MovieEditPage = observer(() => {
             } else {
                 setSearchList([])
             }
+
         } catch (error) {
             console.error('검색 실패 : ', error)
             movieStore.setQuery("");

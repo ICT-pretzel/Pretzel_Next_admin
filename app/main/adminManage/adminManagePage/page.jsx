@@ -65,9 +65,9 @@ const AdminManagePage = observer(() => {
         adminStore.setAdminInfo("note", admin.note);
         adminStore.setAdminInfo("status", admin.status);
 
-        localStorage.setItem("addadmin_id", admin.admin_id)
-        localStorage.setItem("name", admin.name)
-        localStorage.setItem("role", admin.role)
+        localStorage.setItem("detail_admin_id", admin.admin_id)
+        localStorage.setItem("detail_name", admin.name)
+        localStorage.setItem("detail_role", admin.role)
         localStorage.setItem("note", admin.note)
         localStorage.setItem("status", admin.status)
 

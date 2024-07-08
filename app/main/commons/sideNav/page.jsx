@@ -16,17 +16,37 @@ const SideNav = observer(() => {
     // 현재 경로 가져오기
     const currentPath = usePathname();
 
+    function admin_menu() {
+        if (loginStore.role === "1") {
+            return (
+                <>
+                    <Menus onClick={() => router.push('/main')} active={currentPath === '/main'}>대시보드</Menus>
+                    <Menus onClick={() => router.push('/main/userManage/userManagePage')} active={currentPath.startsWith('/main/userManage')}>회원 관리</Menus>
+                    <Menus onClick={() => router.push('/main/movieManage/movieManagePage')} active={currentPath.startsWith('/main/movieManage')}>콘텐츠 관리</Menus>
+                    <Menus onClick={() => router.push('/main/QnAManage/QnAManagePage')} active={currentPath.startsWith('/main/QnAManage')}>1:1 문의</Menus>
+                    <Menus onClick={() => router.push('/main/reportManage/reportManagePage')} active={currentPath.startsWith('/main/reportManage')}>신고 관리</Menus>
+                    <Menus onClick={() => router.push('/main/adminManage/adminManagePage')} active={currentPath.startsWith('/main/adminManage')}>관리자 관리</Menus>
+                </>
+            )
+        } else {
+            return (
+                <>
+                    <Menus onClick={() => router.push('/main')} active={currentPath === '/main'}>대시보드</Menus>
+                    <Menus onClick={() => router.push('/main/userManage/userManagePage')} active={currentPath.startsWith('/main/userManage')}>회원 관리</Menus>
+                    <Menus onClick={() => router.push('/main/movieManage/movieManagePage')} active={currentPath.startsWith('/main/movieManage')}>콘텐츠 관리</Menus>
+                    <Menus onClick={() => router.push('/main/QnAManage/QnAManagePage')} active={currentPath.startsWith('/main/QnAManage')}>1:1 문의</Menus>
+                    <Menus onClick={() => router.push('/main/reportManage/reportManagePage')} active={currentPath.startsWith('/main/reportManage')}>신고 관리</Menus>
+                </>
+            )
+        }
+    }
+
     return (
         <SideNavContainer>
             <AdminNameContainer>
-                <AdminName><ColorOrange>{loginStore.admin_id}</ColorOrange>님</AdminName>
+                <AdminName><ColorOrange>{loginStore.name}</ColorOrange> 님</AdminName>
             </AdminNameContainer>
-            <Menus onClick={() => router.push('/main')} active={currentPath === '/main'}>대시보드</Menus>
-            <Menus onClick={() => router.push('/main/userManage/userManagePage')} active={currentPath.startsWith('/main/userManage')}>회원 관리</Menus>
-            <Menus onClick={() => router.push('/main/movieManage/movieManagePage')} active={currentPath.startsWith('/main/movieManage')}>콘텐츠 관리</Menus>
-            <Menus onClick={() => router.push('/main/QnAManage/QnAManagePage')} active={currentPath.startsWith('/main/QnAManage')}>1:1 문의</Menus>
-            <Menus onClick={() => router.push('/main/reportManage/reportManagePage')} active={currentPath.startsWith('/main/reportManage')}>신고 관리</Menus>
-            <Menus onClick={() => router.push('/main/adminManage/adminManagePage')} active={currentPath.startsWith('/main/adminManage')}>관리자 관리</Menus>
+            {admin_menu()}
             <Logo>pretzel</Logo>
         </SideNavContainer>
     )

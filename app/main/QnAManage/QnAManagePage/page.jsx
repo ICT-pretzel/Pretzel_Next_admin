@@ -58,6 +58,7 @@ const QnAManagePage = observer(() => {
     // Q&A 상세 들어가기
     const onClickQna = (question_idx) => {
         qnaStore.setQusetionIdx(question_idx)
+        localStorage.setItem("question_idx", question_idx)
         router.push('/main/QnAManage/QnADetailPage')
     }
 

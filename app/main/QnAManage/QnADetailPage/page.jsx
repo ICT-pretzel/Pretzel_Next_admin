@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { LoginContext, QnaContext } from "../../../../stores/StoreContext";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { Answer_Container, Answer_Content, Answer_Date, CompleteBtn, Info, Info2, Info_Container, Info_Title, QuestionInfo_Container, Question_Container, Question_Content, Question_Date, Question_Title, SaveBtn, Subtitle } from "../../../../styles/QnADetailCSS";
+import { Answer_Container, Answer_Content, Answer_Date, Answer_Write, Buttons, CompleteBtn, Info, Info2, Info_Container, Info_Title, QuestionInfo_Container, Question_Container, Question_Content, Question_Date, Question_Title, SaveBtn, Subtitle } from "../../../../styles/QnADetailCSS";
 import LoadingSpinner from "../../../loadingSpinner/page";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { ColorGray } from "../../../../styles/commons/commonsCSS";
@@ -23,6 +23,7 @@ const QnADetailPage = observer(() => {
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
+        qnaStore.setQusetionIdx(localStorage.getItem("question_idx"))
         quest_detail();
     }, []);
 

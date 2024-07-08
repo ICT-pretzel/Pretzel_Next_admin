@@ -17,9 +17,9 @@ const AdminDetailPage = observer(() => {
 
     // 처음 렌더링 될 때 실행
     useEffect(() => {
-        adminStore.setAdminInfo("admin_id", localStorage.getItem("addadmin_id"));
-        adminStore.setAdminInfo("name", localStorage.getItem("name"));
-        adminStore.setAdminInfo("role", localStorage.getItem("role"));
+        adminStore.setAdminInfo("admin_id", localStorage.getItem("detail_admin_id"));
+        adminStore.setAdminInfo("name", localStorage.getItem("detail_name"));
+        adminStore.setAdminInfo("role", localStorage.getItem("detail_role"));
         adminStore.setAdminInfo("note", localStorage.getItem("note"));
         adminStore.setAdminInfo("status", localStorage.getItem("status"));
     }, []);
