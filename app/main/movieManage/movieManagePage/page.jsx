@@ -11,6 +11,7 @@ import { Buttons, ButtonsContainer, DeleteBtn, EditBtn, Grade12, Grade15, Grade1
 import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../../../styles/commons/commonsCSS";
 import axios from "axios";
 import { LoginContext, MovieContext } from "../../../../stores/StoreContext";
+import LoadingSpinner from "../../../loadingSpinner/page";
 
 const MovieManagePage = observer(() => {
     const movieStore = useContext(MovieContext)
@@ -47,9 +48,10 @@ const MovieManagePage = observer(() => {
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
+            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
     }
-    
+
     // 영화 검색 - 검색어
     const onChangeKeyword = (e) => {
         movieStore.setKeyword(e.target.value)
@@ -60,6 +62,11 @@ const MovieManagePage = observer(() => {
         if (e.key === 'Enter') {
             list_movie();
         }
+    }
+
+    // 로딩중일 때
+    if (isLoading) {
+        return <LoadingSpinner />
     }
 
     // 수정 버튼 클릭 시
