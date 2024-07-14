@@ -48,6 +48,7 @@ export const Profile_Img = styled.img`
     width: 100px;
     height: 100px;
     border-radius: 50%;
+    object-fit: cover;
 `
 
 export const Profile_Info = styled.div`

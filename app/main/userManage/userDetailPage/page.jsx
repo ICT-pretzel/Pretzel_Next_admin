@@ -222,7 +222,7 @@ const UserDetailPage = observer(() => {
                 {userProfile.map((k) => (
                     <ProfileContainer key={k.profile_idx}>
                         {/* 프로필 이미지 경로 넣어주기 */}
-                        <Profile_Img src="" />
+                        <Profile_Img src={`http://localhost:8080/common/image?imageName=${k.img_name}`} />
                         <Profile_Info>
                             <Profile_Nickname>프로필명 &#160;<ColorGray>{k.name}</ColorGray></Profile_Nickname>
                             <Profile_Birth>생년월일 &#160;<ColorGray>{k.birth}</ColorGray></Profile_Birth>
@@ -230,7 +230,6 @@ const UserDetailPage = observer(() => {
                         </Profile_Info>
                     </ProfileContainer>
                 ))}
-
             </ProfileAllContainer>
 
             {buttons()}
