@@ -68,6 +68,11 @@ export const UserID = styled.td`
 
 export const UserName = styled.td`
     width: 15%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 export const UserEmail = styled.td`

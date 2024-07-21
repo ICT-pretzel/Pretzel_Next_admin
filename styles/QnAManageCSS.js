@@ -43,14 +43,19 @@ export const Questioner = styled.td`
 `
 
 export const Profile_name = styled.td`
-    width: 15%;
+    width: 10%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 export const QnATitle = styled.td`
     max-width: 0; /* max-width 추가 */
-    box-sizing: border-box;
+    width: 25%;
     padding: 0 20px;
-    width: 30%;
+    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -65,5 +70,10 @@ export const AnswerState = styled.td`
 `
 
 export const ResolvedAdmin = styled.td`
-    width: 15%;
+    width: 10%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `

@@ -71,17 +71,19 @@ const ReportManagePage = observer(() => {
                     <Report_Title>
                         <ReportType>신고 유형</ReportType>
                         <ReviewContent>리뷰 내용</ReviewContent>
-                        <ReportDate>신고 날짜</ReportDate>
                         <Processing>처리 상태</Processing>
                         <AdministratorName>처리한 관리자</AdministratorName>
+                        <ReportDate>신고 날짜</ReportDate>
+                        <ReportDate>처리 날짜</ReportDate>
                     </Report_Title>
                     {reportList.report_list.map((k) => (
                         <Report_Content key={k.report_idx} onClick={() => onClickReport(k.report_idx)}>
                             <ReportType>{k.type}</ReportType>
                             <ReviewContent>{k.content}</ReviewContent>
-                            <ReportDate>{k.regdate.slice(0, 10)}</ReportDate>
                             <Processing>{k.status === '2' ? <ColorOrange>처리 전</ColorOrange> : '처리 완료'}</Processing>
                             <AdministratorName>{k.admin_name}</AdministratorName>
+                            <ReportDate>{k.regdate.slice(0, 10)}</ReportDate>
+                            <ReportDate>{k.ansdate ? k.ansdate.slice(0, 10) : ""}</ReportDate>
                         </Report_Content>
                     ))}
                 </ ReportContainer_inner>

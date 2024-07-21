@@ -39,12 +39,12 @@ export const Report_Content = styled.tr`
 `
 
 export const ReportType = styled.td`
-    width: 15%;
+    width: 10%;
 `
 
 export const ReviewContent = styled.td`
     max-width: 0; /* max-width 추가 */
-    width: 40%;
+    width: 35%;
     box-sizing: border-box;
     padding: 0 20px;
     overflow: hidden;
@@ -53,7 +53,7 @@ export const ReviewContent = styled.td`
 `
 
 export const ReportDate = styled.td`
-    width: 20%;
+    width: 15%;
 `
 
 export const Processing = styled.td`

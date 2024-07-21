@@ -75,6 +75,7 @@ const QnAManagePage = observer(() => {
                         <WriteDate>작성 날짜</WriteDate>
                         <AnswerState>답변 여부</AnswerState>
                         <ResolvedAdmin>처리한 관리자</ResolvedAdmin>
+                        <WriteDate>처리 날짜</WriteDate>
                     </QnATable_Title>
                     {qnaList.quest_list.map((k) => (
                         <QnATable key={k.question_idx} onClick={() => onClickQna(k.question_idx)}>
@@ -84,6 +85,7 @@ const QnAManagePage = observer(() => {
                             <WriteDate>{k.regdate.slice(0, 10)}</WriteDate>
                             <AnswerState>{k.status === '0' ? '처리완료' : <ColorOrange>미답변</ColorOrange>}</AnswerState>
                             <ResolvedAdmin>{k.admin_id}</ResolvedAdmin>
+                            <WriteDate>{k.ansdate ? k.ansdate.slice(0, 10) : ""}</WriteDate>
                         </QnATable>
                     ))}
                 </QnAContainer_inner>

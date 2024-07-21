@@ -74,7 +74,7 @@ export const MovieInfo = styled.tr`
 `
 
 export const MovieName = styled.td`
-    width: 40%;
+    width: 30%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -84,50 +84,59 @@ export const MovieName = styled.td`
 `
 
 export const ReleaseYear = styled.td`
-    width: 12%;
+    width: 8%;
 `
 
 export const MovieGrade = styled.td`
-    width: 12%;
+    width: 7%;
 `
 
 export const InfoEdit = styled.td`
-    width: 12%;
+    width: 9%;
 `
 
 export const InfoDelete = styled.td`
-    width: 12%;
+    width: 9%;
 `
 
 export const InformationMatch = styled.td`
-    width: 12%;
+    width: 11%;
 `
 
-export const Pagings = styled.div`
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-    width: 200px;
-    justify-content: space-between;
+export const AiSync = styled.td`
+    width: 13%;
 `
 
-export const PaginationPrev = styled.p`
-    font-family: "Pretendard-Regular";
-    color: #868686;
-`
-
-export const PaginationNum = styled.p`
+export const AiSyncBtn = styled.button`
+    width: 70%;
+    height: 25px;
+    border-radius: 50px;
+    background-color: #4b4b4b;
+    border: none;
     font-family: "Pretendard-Regular";
     color: #ffffff;
+
+    &:hover {
+        background-color: #343434;
+        color: #868686;
+        cursor: pointer;
+    }
 `
 
-export const PaginationNext = styled.p`
-    font-family: "Pretendard-Regular";
+export const AiReSyncBtn = styled.button`
+    background-color: transparent;
+    border: none;
+    font: 16px/40px "Pretendard-Regular";
     color: #ffffff;
+
+    &:hover {
+        color: #868686;
+        cursor: pointer;
+    }
 `
 
 export const EditBtn = styled.button`
-    width: 60%;
+    width: 70%;
     height: 25px;
     border-radius: 50px;
     background-color: #4b4b4b;
@@ -143,7 +152,7 @@ export const EditBtn = styled.button`
 `
 
 export const DeleteBtn = styled.button`
-    width: 60%;
+    width: 70%;
     height: 25px;
     border-radius: 50px;
     background-color: #4b4b4b;
