@@ -16,6 +16,7 @@ import { ColorGray, ColorGreen, ColorOrange, ColorRed } from "../../../../styles
 import axios from "axios";
 import { LoginContext, MovieContext } from "../../../../stores/StoreContext";
 import LoadingSpinner from "../../../loadingSpinner/page";
+import Paging from "../../commons/paging/page";
 
 const MovieManagePage = observer(() => {
     const movieStore = useContext(MovieContext)
@@ -23,7 +24,13 @@ const MovieManagePage = observer(() => {
     const router = useRouter();
 
     // 영화 리스트
-    const [movieList, setMovieList] = useState({ count: 0, movie_list: [] });
+    const [movieList, setMovieList] = useState({});
+
+    // 페이징용
+    const [cPage, setCPage] = useState("1");
+    const [keyword, setKeyword] = useState("");
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -42,14 +49,23 @@ const MovieManagePage = observer(() => {
         try {
             const response = await axios.get(API_URL + "list_movie", {
                 params: {
-                    keyword: movieStore.keyword
+                    cPage : cPage,
+                    keyword: keyword
                 }
             });
 
             if (response.data.movie_list.length > 0) {
                 setMovieList(response.data);
-                movieStore.setKeyword("")
+                setPagingInfo(response.data.paging)
+                
             }
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            console.log(response.data.paging)
+            setPages(ex_page)
+            console.log("배열",ex_page);
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
@@ -59,7 +75,7 @@ const MovieManagePage = observer(() => {
 
     // 영화 검색 - 검색어
     const onChangeKeyword = (e) => {
-        movieStore.setKeyword(e.target.value)
+        setKeyword(e.target.value)
     }
 
     // 검색창에서 엔터키 감지
@@ -252,6 +268,7 @@ const MovieManagePage = observer(() => {
                     ))}
                 </MovieContainer_Content>
             </MovieContainer>
+            <Paging setCPage={setCPage} pages={pages} paging={pagingInfo} list_movie={list_movie} />
         </>
     )
 })
