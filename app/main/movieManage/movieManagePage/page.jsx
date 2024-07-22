@@ -27,7 +27,6 @@ const MovieManagePage = observer(() => {
     const [movieList, setMovieList] = useState({});
 
     // 페이징용
-    const [cPage, setCPage] = useState("1");
     const [keyword, setKeyword] = useState("");
     const [pagingInfo, setPagingInfo] = useState({});
     const [pages, setPages] = useState([]);
@@ -43,9 +42,12 @@ const MovieManagePage = observer(() => {
     const API_URL = "/movie/"
 
     // 영화 리스트 보여주는 function
-    async function list_movie() {
+    async function list_movie(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
         try {
             const response = await axios.get(API_URL + "list_movie", {
                 params: {
@@ -63,9 +65,7 @@ const MovieManagePage = observer(() => {
             for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
                 ex_page.push(k);
             }
-            console.log(response.data.paging)
             setPages(ex_page)
-            console.log("배열",ex_page);
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
@@ -268,7 +268,7 @@ const MovieManagePage = observer(() => {
                     ))}
                 </MovieContainer_Content>
             </MovieContainer>
-            <Paging setCPage={setCPage} pages={pages} paging={pagingInfo} list_movie={list_movie} />
+            <Paging pages={pages} paging={pagingInfo} list_movie={list_movie} />
         </>
     )
 })
