@@ -27,32 +27,43 @@ const MovieAddInput = observer(() => {
     const API_URL = "/movie/"
 
     async function insert_movie() {
-        try {
-            // FormData 객체 생성 및 파일 추가
-            const formData = new FormData();
-            formData.append('movie', movieStore.movieInfo.movie);
-            formData.append('subtitle', movieStore.movieInfo.subtitle);
+        if (movieStore.movieInfo.movie_id === "" ||
+            movieStore.movieInfo.korea_title === "" ||
+            movieStore.movieInfo.english_title === "" ||
+            movieStore.movieInfo.movie === null ||
+            movieStore.movieInfo.subtitle === null
+        ) {
+            alert("모든 정보를 입력해 주세요.")
+        } else {
+            try {
+                // FormData 객체 생성 및 파일 추가
+                const formData = new FormData();
+                formData.append('movie', movieStore.movieInfo.movie);
+                formData.append('subtitle', movieStore.movieInfo.subtitle);
 
-            const response = await axios.post(API_URL + "insert_movie", formData, {
-                params: {
-                    movie_id: movieStore.movieInfo.movie_id,
-                    korea_title: movieStore.movieInfo.korea_title,
-                    english_title: movieStore.movieInfo.english_title,
-                    thema: movieStore.movieInfo.thema
-                },
-                headers: {
-                    Authorization: `Bearer ${loginStore.token}`,
-                    'Content-Type': 'multipart/form-data'
+                const response = await axios.post(API_URL + "insert_movie", formData, {
+                    params: {
+                        movie_id: movieStore.movieInfo.movie_id,
+                        korea_title: movieStore.movieInfo.korea_title,
+                        english_title: movieStore.movieInfo.english_title,
+                        thema: movieStore.movieInfo.thema
+                    },
+                    headers: {
+                        Authorization: `Bearer ${loginStore.token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+
+                if (response.data === 1) {
+                    alert("영화 추가가 완료되었습니다.")
+                    router.push("/main/movieManage/movieManagePage")
+                    movieStore.keyword("")
+                } else {
+                    alert("추가에 실패했습니다.\n다시 시도해 주세요.")
                 }
-            });
-
-            if(response.data){
-                alert("영화 추가가 완료되었습니다.")
-                router.push("/main/movieManage/movieManagePage")
-                movieStore.keyword("")
+            } catch (error) {
+                console.error('영화 추가 실패 : ', error)
             }
-        } catch (error) {
-            console.error('영화 추가 실패 : ', error)
         }
     }
 

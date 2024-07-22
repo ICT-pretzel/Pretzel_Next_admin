@@ -12,7 +12,7 @@ class MovieStore {
         movie_id: '', /* 영화 아이디 */
         korea_title: '', /* 한국어 제목 */
         english_title: '', /* 영어 제목 */
-        thema: '', /* 장르 */
+        thema: '공포', /* 장르 - select의 option 기본값 */
         movie: null, /* 영화 파일 */
         subtitle: null /* 자막 파일 */
     };

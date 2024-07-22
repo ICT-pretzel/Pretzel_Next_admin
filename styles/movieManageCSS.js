@@ -108,7 +108,7 @@ export const AiSync = styled.td`
 `
 
 export const AiSyncBtn = styled.button`
-    width: 70%;
+    width: 90%;
     height: 25px;
     border-radius: 50px;
     background-color: #4b4b4b;

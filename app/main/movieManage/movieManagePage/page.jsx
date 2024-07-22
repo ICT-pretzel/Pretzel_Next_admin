@@ -49,7 +49,7 @@ const MovieManagePage = observer(() => {
         try {
             const response = await axios.get(API_URL + "list_movie", {
                 params: {
-                    cPage : cPage,
+                    cPage: cPage,
                     keyword: keyword
                 }
             });
@@ -57,7 +57,7 @@ const MovieManagePage = observer(() => {
             if (response.data.movie_list.length > 0) {
                 setMovieList(response.data);
                 setPagingInfo(response.data.paging)
-                
+
             }
             let ex_page = []
             for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
@@ -65,7 +65,7 @@ const MovieManagePage = observer(() => {
             }
             console.log(response.data.paging)
             setPages(ex_page)
-            console.log("배열",ex_page);
+            console.log("배열", ex_page);
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
@@ -149,39 +149,43 @@ const MovieManagePage = observer(() => {
 
     // deepface_ai 분석 시작 버튼
     async function deepface_ai(movie_idx, movie_url) {
-        setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-        try {
-            const response = await axios.get(API_URL + "cast_list", {
-                params: {
-                    movie_idx: movie_idx
-                }
-            });
-            const actorList = {};
-            response.data.forEach(cast => {
-                actors[cast.cast_name] = cast.cast_img;
-            });
-            const response2 = await axios.post("/python/actor_face_movie/", {
-                url: `${movie_url}.mp4`,
-                actors: actorList
-            });
-            console.log(response.data)
+        if (/^pretzel-ani\/.*$/.test(movie_url)) {
+            alert("애니메이션은 deepface ai 구동이 불가능합니다.")
+        } else {
+            setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+            try {
+                const response = await axios.get(API_URL + "cast_list", {
+                    params: {
+                        movie_idx: movie_idx
+                    }
+                });
+                const actorList = {};
+                response.data.forEach(cast => {
+                    actors[cast.cast_name] = cast.cast_img;
+                });
+                const response2 = await axios.post("/python/actor_face_movie/", {
+                    url: `${movie_url}.mp4`,
+                    actors: actorList
+                });
+                console.log(response.data)
 
-            if (response.data === 1) {
-                try {
-                    const response = await axios.get(API_URL + "deepface_insert", {
-                        params: {
-                            movie_idx: movie_idx
-                        }
-                    });
-                    window.location.reload();
-                } catch (error) {
-                    console.error('deepface ai 실패 : ', error)
+                if (response.data === 1) {
+                    try {
+                        const response = await axios.get(API_URL + "deepface_insert", {
+                            params: {
+                                movie_idx: movie_idx
+                            }
+                        });
+                        window.location.reload();
+                    } catch (error) {
+                        console.error('deepface ai 실패 : ', error)
+                    }
                 }
+            } catch (error) {
+                console.error('deepface ai 실패 : ', error)
+            } finally {
+                setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
             }
-        } catch (error) {
-            console.error('deepface ai 실패 : ', error)
-        } finally {
-            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
         }
     }
 
@@ -214,6 +218,29 @@ const MovieManagePage = observer(() => {
         }
     }
 
+    // TMDB 동기화 버튼
+    async function tmdb_sync() {
+        setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
+        try {
+            const response = await axios.get(API_URL + "synchro_movie", {
+                headers: {
+                    Authorization: `Bearer ${loginStore.token}`
+                }
+            });
+
+            if (response.data === 1) {
+                alert("동기화가 완료되었습니다.")
+            } else {
+                alert("동기화에 실패했습니다.\n다시 시도해 주세요.")
+            }
+        } catch (error) {
+            console.error('TMDB 동기화 실패 : ', error)
+        } finally {
+            setIsLoading(false); // 데이터를 로드한 후 로딩 상태 해제
+        }
+    }
+
     return (
         <>
             <AdminPageTitle>콘텐츠 관리</AdminPageTitle>
@@ -227,8 +254,7 @@ const MovieManagePage = observer(() => {
                 <MovieNum>총 영화수 <ColorOrange>{movieList.count}</ColorOrange></MovieNum>
                 <Buttons>
                     <MovieAddBtn onClick={onClickAddMovie}>영화 추가</MovieAddBtn>
-                    {/* 동기화 버튼 구현은 나중에 */}
-                    <SynchroBtn>TMDB 동기화</SynchroBtn>
+                    <SynchroBtn onClick={tmdb_sync}>TMDB 동기화</SynchroBtn>
                 </Buttons>
             </ButtonsContainer>
             <MovieContainer>
@@ -256,11 +282,11 @@ const MovieManagePage = observer(() => {
                             <InfoDelete><DeleteBtn onClick={() => delete_movie(k)}>삭제</DeleteBtn></InfoDelete>
 
                             <AiSync>{k.ai_deep_syc === null ?
-                                <AiSyncBtn onClick={() => deepface_ai(k.movie_idx, k.movie_url)}>AI 분석</AiSyncBtn>
+                                <AiSyncBtn onClick={() => deepface_ai(k.movie_idx, k.movie_url)}>deepface 구동</AiSyncBtn>
                                 : <AiReSyncBtn onClick={() => deepface_ai(k.movie_idx, k.movie_url)}>{k.ai_deep_syc.slice(0, 10)}</AiReSyncBtn>}</AiSync>
 
                             <AiSync>{k.ai_emotion_syc === null ?
-                                <AiSyncBtn onClick={() => emoition_ai(k.movie_idx, k.movie_url)}>AI 분석</AiSyncBtn>
+                                <AiSyncBtn onClick={() => emoition_ai(k.movie_idx, k.movie_url)}>감정분석 구동</AiSyncBtn>
                                 : <AiReSyncBtn onClick={() => emoition_ai(k.movie_idx, k.movie_url)}>{k.ai_emotion_syc.slice(0, 10)}</AiReSyncBtn>}</AiSync>
 
                             <InformationMatch>{k.synchro === '1' ? <ColorGreen>일치</ColorGreen> : <ColorRed>불일치</ColorRed>}</InformationMatch>
