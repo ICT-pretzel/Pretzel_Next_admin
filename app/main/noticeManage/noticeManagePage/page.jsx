@@ -11,10 +11,12 @@ import { ButtonsContainer } from "@/styles/movieManageCSS";
 import { Notice_Container, Notice_Container__inner, Notice_Content, Notice_Content__Content, Notice_Content__Title, Notice_Reg_Admin, Notice_Regdate, Notice_Title, NoticeAddBtn, NoticeNum } from "@/styles/noticeManageCSS";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 const NoticeManagePage = observer(() => {
     const loginStore = useContext(LoginContext)
+    const router = useRouter();
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +58,7 @@ const NoticeManagePage = observer(() => {
     }
 
     const onClickAddNotice = () => {
+        router.push("/main/noticeManage/noticeAddPage")
     }
 
     // 공지사항 삭제 function

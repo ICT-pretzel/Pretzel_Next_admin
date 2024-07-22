@@ -7,10 +7,12 @@ import { LoginContext } from "@/stores/StoreContext";
 import { AdminPageTitle } from "@/styles/adminCommonCSS";
 import { Add_Button, Add_Container, AddContent_Container, AddContent_Content, AddContent_Title, AddInfo_All_Container, AddInfo_Container, AddInfo_Content, AddInfo_Title, FAQ_Type, SelectType } from "@/styles/faqAndNoticeAddCSS";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useContext, useState } from "react";
 
 const FAQAddPage = () => {
     const loginStore = useContext(LoginContext)
+    const router = useRouter();
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(false);
@@ -28,11 +30,6 @@ const FAQAddPage = () => {
 
     // FAQ 추가하는 function
     async function faq_insert() {
-
-        console.log("토큰" + loginStore.token)
-        console.log("토큰없음")
-        console.log(title, content, type)
-
         if (title === "") {
             alert("질문을 입력해 주세요.")
         } else if (content === "") {
@@ -43,21 +40,20 @@ const FAQAddPage = () => {
             try {
                 const response = await axios.post(API_URL + "faq_insert",
                     {
-                        headers: {
-                            Authorization: `Bearer ${loginStore.token}`
-                        }
-                    },
-                    {
                         "title": title,
                         "type": type,
                         "content": content
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${loginStore.token}`
+                        }
                     }
                 );
 
-                console.log(response.data)
-
                 if (response.data === 1) {
                     alert("FAQ가 성공적으로 추가되었습니다.")
+                    router.push("/main/faqManage/faqManagePage")
                 } else {
                     alert("추가에 실패했습니다.\n다시 시도해 주세요.")
                 }

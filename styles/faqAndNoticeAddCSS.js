@@ -8,8 +8,23 @@ export const Add_Container = styled.div`
     align-items: center;
 `
 
+export const Add_Container_2 = styled.div`
+    top: calc(50vh - 333.5px);
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
 export const AddInfo_All_Container = styled.div`
     margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const AddInfo_All_Container_2 = styled.div`
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -50,6 +65,12 @@ export const AddContent_Title = styled.div`
     font: 16px "Pretendard-Regular";
     color: #ffffff;
     margin: 50px 0 10px 0;
+`
+
+export const AddContent_Title_2 = styled.div`
+    font: 16px "Pretendard-Regular";
+    color: #ffffff;
+    margin-bottom: 10px;
 `
 
 export const AddContent_Content = styled.textarea`
