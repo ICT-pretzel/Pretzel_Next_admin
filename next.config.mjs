@@ -39,6 +39,12 @@ const nextConfig = {
                 // SpringBoot 의 /main/ 으로 리 라이트 됩니다.
                 source: "/main/:path*",
                 destination: "http://localhost:8090/main/:path*",
+            },
+            {
+                // /main/ 으로 시작되는 모든 요청
+                // SpringBoot 의 /main/ 으로 리 라이트 됩니다.
+                source: "/python/:path*",
+                destination: "http://127.0.0.1:8000/:path*",
             }
         ];
     }

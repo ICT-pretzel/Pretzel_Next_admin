@@ -144,7 +144,7 @@ const MovieManagePage = observer(() => {
             response.data.forEach(cast => {
                 actors[cast.cast_name] = cast.cast_img;
             });
-            const response2 = await axios.post("http://0.0.0.0:8000/actor_face_movie/", {
+            const response2 = await axios.post("/python/actor_face_movie/", {
                 url: `${movie_url}.mp4`,
                 actors: actorList
             });
@@ -170,10 +170,10 @@ const MovieManagePage = observer(() => {
     }
 
     // emoition_ai 분석 시작 버튼
-    async function emoition_ai(movie_url) {
+    async function emoition_ai(movie_idx, movie_url) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
         try {
-            const response = await axios.post("http://0.0.0.0:8000/emotion_music_movie/", {
+            const response = await axios.post("/python/emotion_music_movie/", {
                 video_url: `${movie_url}.mp4`,
                 subtitle_url: `${movie_url}.srt`
             });
@@ -244,8 +244,8 @@ const MovieManagePage = observer(() => {
                                 : <AiReSyncBtn onClick={() => deepface_ai(k.movie_idx, k.movie_url)}>{k.ai_deep_syc.slice(0, 10)}</AiReSyncBtn>}</AiSync>
 
                             <AiSync>{k.ai_emotion_syc === null ?
-                                <AiSyncBtn onClick={() => emoition_ai(k.movie_url)}>AI 분석</AiSyncBtn>
-                                : <AiReSyncBtn onClick={() => emoition_ai(k.movie_url)}>{k.ai_emotion_syc.slice(0, 10)}</AiReSyncBtn>}</AiSync>
+                                <AiSyncBtn onClick={() => emoition_ai(k.movie_idx, k.movie_url)}>AI 분석</AiSyncBtn>
+                                : <AiReSyncBtn onClick={() => emoition_ai(k.movie_idx, k.movie_url)}>{k.ai_emotion_syc.slice(0, 10)}</AiReSyncBtn>}</AiSync>
 
                             <InformationMatch>{k.synchro === '1' ? <ColorGreen>일치</ColorGreen> : <ColorRed>불일치</ColorRed>}</InformationMatch>
                         </MovieInfo>
