@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
 
 export const AdminAdd_Container = styled.div`
-    height: 100%;
+    top: calc(50vh - 317.5px);
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -67,7 +68,7 @@ export const AddBtn = styled.button`
     color: #ffffff;
     height: 50px;
     width: 110px;
-    margin: 30px 0 100px 0;
+    margin-top: 30px;
 
     &:hover {
         color: #868686;

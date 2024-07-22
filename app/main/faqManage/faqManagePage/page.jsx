@@ -10,10 +10,12 @@ import { Delete, Delete_Button, FAQ_Container, FAQ_Container__inner, FAQ_Content
 import { ButtonsContainer } from "@/styles/movieManageCSS";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
+import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
 const FAQManagePage = observer(() => {
     const loginStore = useContext(LoginContext)
+    const router = useRouter();
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -28,7 +30,7 @@ const FAQManagePage = observer(() => {
 
     const API_URL = "/clientCenter/"
 
-    // Q&A 리스트 보여주는 function
+    // FAQ 리스트 보여주는 function
     async function faq_list() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
 
@@ -55,7 +57,7 @@ const FAQManagePage = observer(() => {
     }
 
     const onClickAddFAQ = () => {
-
+        router.push("/main/faqManage/faqAddPage")
     }
 
     // FAQ 삭제 function

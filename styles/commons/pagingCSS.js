@@ -1,6 +1,7 @@
 import styled from "@emotion/styled"
 
-export const Pagings = styled.div`
+export const Pagings = styled.ol`
+    color: #ffffff;
     display: flex;
     flex-direction: row;
     margin-top: 30px;
