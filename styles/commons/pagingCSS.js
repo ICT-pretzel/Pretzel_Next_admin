@@ -6,21 +6,19 @@ export const Pagings = styled.ol`
     display: flex;
     flex-direction: row;
     margin: 50px 0 100px 0;
-    width: 200px;
     justify-content: space-between;
 `
 
-export const PaginationPrev = styled.p`
-    font-family: "Pretendard-Regular";
+export const Page = styled.span`
+    margin: 0 15px;
+
+    &:hover {
+        color: #868686;
+        cursor: pointer;
+    }
+`
+
+export const NoPage = styled.li`
     color: #868686;
-`
-
-export const PaginationNum = styled.p`
-    font-family: "Pretendard-Regular";
-    color: #ffffff;
-`
-
-export const PaginationNext = styled.p`
-    font-family: "Pretendard-Regular";
-    color: #ffffff;
+    margin: 0 15px;
 `

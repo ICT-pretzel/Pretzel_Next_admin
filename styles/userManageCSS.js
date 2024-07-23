@@ -73,6 +73,7 @@ export const UserName = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const UserEmail = styled.td`

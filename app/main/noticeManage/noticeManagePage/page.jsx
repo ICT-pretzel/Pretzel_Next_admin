@@ -6,13 +6,13 @@ import LoadingSpinner from "@/app/loadingSpinner/page";
 import { LoginContext } from "@/stores/StoreContext";
 import { AdminPageTitle } from "@/styles/adminCommonCSS";
 import { ColorOrange } from "@/styles/commons/commonsCSS";
-import { Delete, Delete_Button } from "@/styles/faqManageCSS";
-import { ButtonsContainer } from "@/styles/movieManageCSS";
+import { ButtonsContainer, Delete, Delete_Button } from "@/styles/faqManageCSS";
 import { Notice_Container, Notice_Container__inner, Notice_Content, Notice_Content__Content, Notice_Content__Title, Notice_Reg_Admin, Notice_Regdate, Notice_Title, NoticeAddBtn, NoticeNum } from "@/styles/noticeManageCSS";
 import axios from "axios";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import Paging from "../../commons/paging/page";
 
 const NoticeManagePage = observer(() => {
     const loginStore = useContext(LoginContext)
@@ -24,6 +24,10 @@ const NoticeManagePage = observer(() => {
     // 공지사항 리스트
     const [noticeList, setNoticeList] = useState({ notice_list: [], count: 0 })
 
+    // 페이징용
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
+
     // 처음 렌더링 될 때 실행
     useEffect(() => {
         notice_list()
@@ -32,19 +36,31 @@ const NoticeManagePage = observer(() => {
     const API_URL = "/clientCenter/"
 
     // 공지사항 리스트 보여주는 function
-    async function notice_list() {
+    async function notice_list(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
 
         try {
             const response = await axios.get(API_URL + "notice_list", {
                 params: {
-                    cPage: 1
+                    cPage: cPage
                 }
             });
 
             if (response.data) {
                 setNoticeList(response.data);
+                setPagingInfo(response.data.paging)
             }
+
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            setPages(ex_page)
+
         } catch (error) {
             console.error('리스트 가져오기 실패 : ', error);
         } finally {
@@ -119,6 +135,7 @@ const NoticeManagePage = observer(() => {
                     ))}
                 </ Notice_Container__inner>
             </ Notice_Container>
+            <Paging pages={pages} paging={pagingInfo} noticeList={noticeList} />
         </>
     )
 })

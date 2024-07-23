@@ -48,6 +48,7 @@ const MovieManagePage = observer(() => {
         if (paging_page !== null) {
             cPage = paging_page
         }
+
         try {
             const response = await axios.get(API_URL + "list_movie", {
                 params: {
@@ -59,8 +60,8 @@ const MovieManagePage = observer(() => {
             if (response.data.movie_list.length > 0) {
                 setMovieList(response.data);
                 setPagingInfo(response.data.paging)
-
             }
+
             let ex_page = []
             for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
                 ex_page.push(k);

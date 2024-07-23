@@ -49,6 +49,7 @@ export const Profile_name = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const QnATitle = styled.td`
@@ -59,6 +60,7 @@ export const QnATitle = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const WriteDate = styled.td`
@@ -76,4 +78,5 @@ export const ResolvedAdmin = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `

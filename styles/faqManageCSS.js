@@ -23,6 +23,14 @@ export const FAQAddBtn = styled.button`
     }
 `
 
+export const ButtonsContainer = styled.div`
+    max-width: 1000px;
+    width: 100%;
+    margin: 30px 0 15px 0;
+    display: flex;
+    justify-content: space-between;
+`
+
 export const FAQ_Container = styled.table`
     max-width: 1000px;
     width: 100%;
@@ -58,6 +66,7 @@ export const FAQ_Title = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const FAQ_Content = styled.td`
@@ -67,6 +76,7 @@ export const FAQ_Content = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const FAQ_Regdate = styled.td`
@@ -80,6 +90,7 @@ export const FAQ_Reg_Admin = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const Delete = styled.td`

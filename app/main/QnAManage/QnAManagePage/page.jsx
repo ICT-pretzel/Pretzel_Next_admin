@@ -11,6 +11,7 @@ import LoadingSpinner from "../../../loadingSpinner/page";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { AnswerState, Profile_name, QnAContainer, QnAContainer_inner, QnANum, QnATable, QnATable_Title, QnATitle, Questioner, ResolvedAdmin, WriteDate } from "../../../../styles/QnAManageCSS";
 import { ColorOrange } from "../../../../styles/commons/commonsCSS";
+import Paging from "../../commons/paging/page";
 
 const QnAManagePage = observer(() => {
     const qnaStore = useContext(QnaContext)
@@ -18,6 +19,10 @@ const QnAManagePage = observer(() => {
 
     // 문의 리스트
     const [qnaList, setQnaList] = useState({ count: 0, quest_list: [] });
+
+    // 페이징용
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -30,19 +35,30 @@ const QnAManagePage = observer(() => {
     const API_URL = "/question/"
 
     // Q&A 리스트 보여주는 function
-    async function quest_list() {
+    async function quest_list(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
 
         try {
             const response = await axios.get(API_URL + "quest_list", {
                 params: {
-                    cPage: 1
+                    cPage: cPage
                 }
             });
 
             if (response.data.quest_list.length > 0) {
                 setQnaList(response.data);
+                setPagingInfo(response.data.paging);
             }
+
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            setPages(ex_page)
         } catch (error) {
             console.error('리스트 가져오기 실패 : ', error);
         } finally {
@@ -90,6 +106,7 @@ const QnAManagePage = observer(() => {
                     ))}
                 </QnAContainer_inner>
             </QnAContainer>
+            <Paging pages={pages} paging={pagingInfo} qnaList={qnaList} />
         </>
     )
 })

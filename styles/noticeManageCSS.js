@@ -54,6 +54,7 @@ export const Notice_Title = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const Notice_Content = styled.td`
@@ -63,6 +64,7 @@ export const Notice_Content = styled.td`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 0;
 `
 
 export const Notice_Regdate = styled.td`

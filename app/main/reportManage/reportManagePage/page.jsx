@@ -11,6 +11,7 @@ import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { AdministratorName, Processing, ReportContainer, ReportContainer_inner, ReportDate, ReportType, Report_Content, Report_Title, ReviewContent, UnprocessedReportNum } from "../../../../styles/reportManageCSS";
 import { ColorOrange } from "../../../../styles/commons/commonsCSS";
 import { ReportContext } from "../../../../stores/StoreContext";
+import Paging from "../../commons/paging/page";
 
 const ReportManagePage = observer(() => {
     const reportStore = useContext(ReportContext)
@@ -18,6 +19,10 @@ const ReportManagePage = observer(() => {
 
     // 신고 리스트
     const [reportList, serReportList] = useState({ report_list: [], count: 0 });
+
+    // 페이징용
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -30,19 +35,31 @@ const ReportManagePage = observer(() => {
     const API_URL = "/report/"
 
     // 신고 리스트 보여주는 function
-    async function report_list() {
+    async function report_list(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
 
         try {
             const response = await axios.get(API_URL + "report_list", {
                 params: {
-                    cPage: 1
+                    cPage: cPage
                 }
             });
 
             if (response.data.report_list.length > 0) {
                 serReportList(response.data);
+                setPagingInfo(response.data.paging)
             }
+
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            setPages(ex_page)
         } catch (error) {
             console.error('리스트 가져오기 실패 : ', error);
         } finally {
@@ -88,6 +105,7 @@ const ReportManagePage = observer(() => {
                     ))}
                 </ ReportContainer_inner>
             </ ReportContainer>
+            <Paging pages={pages} paging={pagingInfo} reportList={reportList} />
         </>
     )
 })

@@ -9,6 +9,7 @@ import LoadingSpinner from "../../../loadingSpinner/page";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
 import { AddAdminBtn, AdminContainer, AdminContainer_inner, AdminInfo, AdminInfo_Title, AdminNum, Admin_ID, Admin_Reg, Admin_Right, Admin_State, ButtonsContainer } from "../../../../styles/adminManageCSS";
 import { ColorOrange } from "../../../../styles/commons/commonsCSS";
+import Paging from "../../commons/paging/page";
 
 const AdminManagePage = observer(() => {
     const adminStore = useContext(AdminContext)
@@ -17,6 +18,10 @@ const AdminManagePage = observer(() => {
 
     // 관리자 리스트
     const [adminList, setAdminList] = useState({ count: 0, admin_list: [] });
+
+    // 페이징용
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
 
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
@@ -29,21 +34,34 @@ const AdminManagePage = observer(() => {
     const API_URL = "/master/"
 
     // 관리자 리스트 보여주는 function
-    async function admin_list() {
+    async function admin_list(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
 
         try {
             const response = await axios.get(API_URL + "admin_list", {
                 params: {
-                    cPage: 1
+                    cPage: cPage
                 },
                 headers: {
                     Authorization: `Bearer ${loginStore.token}`
                 }
             });
+
             if (response.data.admin_list.length > 0) {
                 setAdminList(response.data);
+                setPagingInfo(response.data.paging);
             }
+
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            setPages(ex_page)
         } catch (error) {
             console.error('리스트 가져오기 실패 : ', error)
         } finally {
@@ -104,6 +122,7 @@ const AdminManagePage = observer(() => {
                     ))}
                 </AdminContainer_inner>
             </AdminContainer>
+            <Paging pages={pages} paging={pagingInfo} adminList={adminList} />
         </>
     )
 })

@@ -1,19 +1,25 @@
-import { Pagings } from "@/styles/commons/pagingCSS";
+import { NoPage, Page, Pagings } from "@/styles/commons/pagingCSS";
 import { observer } from "mobx-react-lite";
 
-const Paging = observer(({ pages, paging, list_movie }) => {
+const Paging = observer(({ pages, paging, list_movie, noticeList, qnaList, faqList, userList, reportList, adminList }) => {
     
     function handlePaging(cPage) {
         list_movie(cPage);
+        noticeList(cPage);
+        qnaList(cPage);
+        faqList(cPage);
+        userList(cPage);
+        reportList(cPage);
+        adminList(cPage);
     }
 
     return (
         <Pagings>
             {/* 이전 버튼 */}
             {paging.beginBlock <= paging.pagePerBlock ?
-                <li>이전</li> :
+                <NoPage>이전</NoPage> :
                 <li>
-                    <span onClick={() => handlePaging(paging.beginBlock - paging.pagePerBlock)}>이전</span>
+                    <Page onClick={() => handlePaging(paging.beginBlock - paging.pagePerBlock)}>이전</Page>
                 </li>
             }
 
@@ -21,18 +27,18 @@ const Paging = observer(({ pages, paging, list_movie }) => {
             {pages.map((k) => (
                 <li key={k}>
                     {k === paging.nowPage ?
-                        k
+                        <NoPage>{k}</NoPage>
                         :
-                        <span onClick={() => handlePaging(k)}>{k}</span>
+                        <Page onClick={() => handlePaging(k)}>{k}</Page>
                     }
                 </li>
             ))}
 
             {/* 이후 버튼 */}
             {paging.endBlock >= paging.totalPage ?
-                <li>다음</li> :
+                <NoPage>다음</NoPage> :
                 <li>
-                    <span onClick={() => handlePaging(paging.beginBlock + paging.pagePerBlock)}>다음</span>
+                    <Page onClick={() => handlePaging(paging.beginBlock + paging.pagePerBlock)}>다음</Page>
                 </li>
             }
         </Pagings>

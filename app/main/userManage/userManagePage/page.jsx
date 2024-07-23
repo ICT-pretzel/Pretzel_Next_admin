@@ -11,6 +11,7 @@ import { Last_Login, SearchField, SuspensionStatus, UserContainer, UserContainer
 import { LoginContext, UserContext } from "../../../../stores/StoreContext";
 import { ColorOrange } from "../../../../styles/commons/commonsCSS";
 import { AdminPageTitle } from "../../../../styles/adminCommonCSS";
+import Paging from "../../commons/paging/page";
 
 const UserManagePage = observer(() => {
     const userStore = useContext(UserContext)
@@ -23,9 +24,14 @@ const UserManagePage = observer(() => {
     // 로딩 상태
     const [isLoading, setIsLoading] = useState(true);
 
+    // 페이징용
+    const [keyword, setKeyword] = useState("");
+    const [pagingInfo, setPagingInfo] = useState({});
+    const [pages, setPages] = useState([]);
+
     // 회원 검색 - 검색어
     const onChangeKeyword = (e) => {
-        userStore.setKeyword(e.target.value)
+        setKeyword(e.target.value)
     }
 
     // 검색창에서 엔터키 감지
@@ -43,24 +49,35 @@ const UserManagePage = observer(() => {
     const API_URL = "/user/"
 
     // 회원 리스트 보여주는 function
-    async function user_list() {
+    async function user_list(paging_page) {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
+
+        let cPage = "1"
+        if (paging_page !== null) {
+            cPage = paging_page
+        }
 
         try {
             const response = await axios.get(API_URL + "user_list", {
                 params: {
-                    cPage: 1,
-                    keyword: userStore.keyword
+                    cPage: cPage,
+                    keyword: keyword
                 },
                 headers: {
                     Authorization: `Bearer ${loginStore.token}`
                 }
             });
-            console.log(response.data)
+
             if (response.data.user_list.length > 0) {
                 setUserList(response.data);
-                userStore.setKeyword("")
+                setPagingInfo(response.data.paging)
             }
+
+            let ex_page = []
+            for (let k = response.data.paging.beginBlock; k <= response.data.paging.endBlock; k++) {
+                ex_page.push(k);
+            }
+            setPages(ex_page)
         } catch (error) {
             console.error('리스트 가져오기 실패: ', error)
         } finally {
@@ -110,6 +127,7 @@ const UserManagePage = observer(() => {
                     ))}
                 </UserContainerContent>
             </UserContainer>
+            <Paging pages={pages} paging={pagingInfo} userList={userList} />
         </>
     )
 })
