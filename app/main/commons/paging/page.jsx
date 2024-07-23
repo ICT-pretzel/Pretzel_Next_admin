@@ -1,13 +1,10 @@
 import { Pagings } from "@/styles/commons/pagingCSS";
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
 
-const Paging = observer(({ setCPage, pages, paging, list_movie }) => {
-    useEffect(() => { }, [paging])
+const Paging = observer(({ pages, paging, list_movie }) => {
+    
     function handlePaging(cPage) {
-        console.log("paging", cPage);
-        setCPage(cPage);
-        list_movie();
+        list_movie(cPage);
     }
 
     return (
