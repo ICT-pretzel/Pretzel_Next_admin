@@ -25,7 +25,6 @@ const AdminDetailReport = () => {
             const response = await axios.post(API_URL + "admin_report", {
                 "admin_id": adminStore.adminInfo.admin_id
             });
-            console.log(response.data)
             if (response.data) {
                 setAdminReportList(response.data)
             }

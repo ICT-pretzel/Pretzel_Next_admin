@@ -132,7 +132,6 @@ const MovieManagePage = observer(() => {
                         Authorization: `Bearer ${loginStore.token}`
                     }
                 });
-                console.log(response.data)
                 if (response.data == '1') {
                     alert("콘텐츠가 정상적으로 삭제되었습니다.")
                     // 영화 리스트 보여주는 function 재실행
@@ -168,7 +167,6 @@ const MovieManagePage = observer(() => {
                     url: `${movie_url}.mp4`,
                     actors: actorList
                 });
-                console.log(response.data)
 
                 if (response.data === 1) {
                     try {
@@ -198,7 +196,6 @@ const MovieManagePage = observer(() => {
                 video_url: `${movie_url}.mp4`,
                 subtitle_url: `${movie_url}.srt`
             });
-            console.log(response.data)
 
             if (response.data === 1) {
                 try {

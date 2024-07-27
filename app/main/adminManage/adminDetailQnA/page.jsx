@@ -21,12 +21,10 @@ const AdminDetailQnA = () => {
 
     // 문의
     async function admin_quest() {
-        console.log(adminStore.adminInfo.admin_id)
         try {
             const response = await axios.post(API_URL + "admin_quest", {
                 "admin_id": adminStore.adminInfo.admin_id
             });
-            console.log(response.data)
             if (response.data) {
                 setAdminQaList(response.data)
             }

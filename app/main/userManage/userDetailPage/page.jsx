@@ -37,8 +37,6 @@ const UserDetailPage = observer(() => {
     // 회원 리스트 보여주는 function
     async function user_detail() {
         setIsLoading(true); // 데이터를 로드하기 전에 로딩 상태로 설정
-        console.log("test", loginStore.token);
-        console.log("test2", userStore.user_id);
         try {
             const response = await axios.post(API_URL + "user_detail",
                 {

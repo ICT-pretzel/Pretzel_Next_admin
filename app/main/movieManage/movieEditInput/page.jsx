@@ -28,10 +28,6 @@ const MovieEditInput = observer(() => {
 
     async function update_movie() {
         setIsLoading(true);
-        console.log("sdfasdass");
-        console.log(movieStore.movieUpdate.movie_idx);
-        console.log(movieStore.movieUpdate.movie_id);
-        console.log(loginStore.token);
         try {
             // FormData 객체 생성 및 파일 추가
             const formData = new FormData();

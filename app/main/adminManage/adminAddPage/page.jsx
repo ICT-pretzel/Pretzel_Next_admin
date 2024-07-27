@@ -23,7 +23,6 @@ const AdminAddPage = observer(() => {
     async function admin_insert() {
         try {
             const response = await axios.post(API_URL + "admin_insert", adminStore.adminInfo);
-            console.log(response.data)
             if (response.data == '1') {
                 alert("관리자 추가가 완료되었습니다")
                 router.push('/main/adminManage/adminManagePage')

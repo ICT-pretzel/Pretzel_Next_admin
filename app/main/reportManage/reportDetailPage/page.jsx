@@ -140,7 +140,6 @@ const ReportDetailPage = observer(() => {
     // 리뷰 삭제 버튼 클릭 시 신고의 상태 변경
     async function review_delete() {
         if (confirm("신고당한 리뷰를 삭제하시겠습니까?")) {
-            console.log(reportStore.report_idx)
             reportStore.setStatus('0');
             try {
                 const response = await axios.post(API_URL + "report_ok",

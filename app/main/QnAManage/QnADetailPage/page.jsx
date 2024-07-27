@@ -62,7 +62,6 @@ const QnADetailPage = observer(() => {
                     admin_name: response.data.admin_name || ''
                 });
             }
-            console.log(response.data);
         } catch (error) {
             console.error('상세 정보 가져오기 실패 : ', error);
         } finally {
@@ -146,7 +145,6 @@ const QnADetailPage = observer(() => {
             } else {
                 alert("답변 작성을 실패하였습니다.")
             }
-            console.log(response.data);
         } catch (error) {
             console.error('답변 작성 실패 : ', error);
         }
