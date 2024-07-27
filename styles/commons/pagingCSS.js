@@ -18,7 +18,7 @@ export const Page = styled.span`
     }
 `
 
-export const NoPage = styled.li`
+export const NoPage = styled.span`
     color: #868686;
     margin: 0 15px;
 `
