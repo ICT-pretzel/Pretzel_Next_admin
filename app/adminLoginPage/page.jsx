@@ -56,9 +56,8 @@ const AdminLoginPage = observer(() => {
                 if (response.data.success) {
                     adminStore.setAdminId("");
                     adminStore.setPwd("");
-                    loginStore.setToken(response.data.token, response.data.userDetails.admin_id,response.data.userDetails.name,response.data.userDetails.role)
+                    loginStore.setToken(response.data.token, response.data.userDetails.admin_id, response.data.userDetails.name, response.data.userDetails.role)
                     router.push('/main/')
-                    return <LoadingSpinner />;
                 } else {
                     alert("존재하지 않는 관리자입니다. \r\n아이디나 비밀번호를 다시 입력해주세요.")
                     adminStore.setAdminId("");

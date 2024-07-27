@@ -23,7 +23,7 @@ class LoginStore {
     }
 
     // 로그인 - 토큰
-    setToken(token,admin_id, name, role){
+    setToken(token, admin_id, name, role){
             this.token = token;
             this.admin_id = admin_id;
             this.name = name;
