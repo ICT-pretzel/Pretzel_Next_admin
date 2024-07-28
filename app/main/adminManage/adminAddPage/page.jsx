@@ -21,18 +21,22 @@ const AdminAddPage = observer(() => {
 
     // 관리자 추가 function
     async function admin_insert() {
-        try {
-            const response = await axios.post(API_URL + "admin_insert", adminStore.adminInfo);
-            if (response.data == '1') {
-                alert("관리자 추가가 완료되었습니다")
-                router.push('/main/adminManage/adminManagePage')
-                adminStore.setAdminInfo("role", "0");
-            } else {
+        if (adminStore.adminInfo.name === "" || adminStore.adminInfo.admin_id === "" || adminStore.adminInfo.pwd === "") {
+            alert("이름, 아이디, 비밀번호를 전부 입력해 주세요.")
+        } else {
+            try {
+                const response = await axios.post(API_URL + "admin_insert", adminStore.adminInfo);
+                if (response.data == '1') {
+                    alert("관리자 추가가 완료되었습니다")
+                    router.push('/main/adminManage/adminManagePage')
+                    adminStore.setAdminInfo("role", "0");
+                } else {
+                    alert("관리자 추가를 다시 시도해주세요.")
+                }
+            } catch (error) {
                 alert("관리자 추가를 다시 시도해주세요.")
+                console.error('관리자 추가 실패 : ', error);
             }
-        } catch (error) {
-            alert("이미 존재하는 관리자 아이디입니다. \r\n관리자 추가를 다시 시도해주세요.")
-            console.error('관리자 추가 실패 : ', error);
         }
     }
 

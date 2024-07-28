@@ -169,6 +169,11 @@ export const Q_AnsDate = styled.p`
 
 export const Q_Content = styled.p`
     width: 35%;
+    box-sizing: border-box;
+    padding: 0 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `
 
 export const NoneContent = styled.div`
