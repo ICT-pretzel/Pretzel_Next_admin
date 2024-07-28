@@ -39,11 +39,11 @@ export const QnATable = styled.tr`
 `
 
 export const Questioner = styled.td`
-    width: 15%;
+    width: 10%;
 `
 
 export const Profile_name = styled.td`
-    width: 10%;
+    width: 15%;
     padding: 0 20px;
     box-sizing: border-box;
     overflow: hidden;
@@ -54,7 +54,7 @@ export const Profile_name = styled.td`
 
 export const QnATitle = styled.td`
     max-width: 0; /* max-width 추가 */
-    width: 25%;
+    width: 20%;
     padding: 0 20px;
     box-sizing: border-box;
     overflow: hidden;
@@ -72,7 +72,7 @@ export const AnswerState = styled.td`
 `
 
 export const ResolvedAdmin = styled.td`
-    width: 10%;
+    width: 15%;
     padding: 0 20px;
     box-sizing: border-box;
     overflow: hidden;
